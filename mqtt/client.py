@@ -9,12 +9,12 @@ import sys
 n = len(sys.argv)
 
 # check args
-if (n != 2):
-    print("correct use: python client.py <broker_address>.")
+if (n != 3):
+    print("correct use: python client.py <broker_address>. <name>")
     exit()
 
 BROKER_ADDR = sys.argv[1]
-
+NAME_NODE   = sys.argv[2]
 # class for coloring messages on terminal
 
 
@@ -41,7 +41,7 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message_selection(client, userdata, message):
     msg = json.loads(message.payload.decode("utf-8"))
-    if int(msg['id']) == trainer.get_id():
+    if msg['id'] == trainer.get_id():
         if bool(msg['selected']) == True:
             print(color.BOLD_START + 'new round starting' + color.BOLD_END)
             print(
@@ -78,7 +78,7 @@ def on_message_stop(client, userdata, message):
 
 
 # connect on queue and send register
-trainer = Trainer()
+trainer = Trainer(NAME_NODE)
 client = mqtt.Client(str(trainer.get_id()))
 client.connect(BROKER_ADDR, keepalive=2000)
 client.on_connect = on_connect

@@ -24,7 +24,7 @@ net.addController('c0')
 
 
 volumes = [f"{Path.cwd()}:/flw"]
-images = "johann:mqtt"
+images = "node:stable"
 
 s1 = net.addSwitch('s1')
 
@@ -38,6 +38,6 @@ srv1.cmd(f"bash -c 'cd flw && python3 -m venv env' ;", verbose=True)
 
 info('*** Iniciando instalação')
 srv1.cmd(f"bash -c 'cd flw && . env/bin/activate && pip install -r {REQUIREMENTS}' ;",verbose=True)
-CLI(net);
+#CLI(net);
 info('*** Parando MININET')
 net.stop()

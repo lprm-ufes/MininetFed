@@ -8,7 +8,7 @@ metrics:
 # General settings
 general:
   absolute_path: false
-  n_available_cpu: 6
+  n_available_cpu: 16
   broker_image: mqtt:stable
   broker_volume: a # não implementado
 
@@ -21,37 +21,37 @@ conections:
   - conection1: 1
     conection2: 2
     type: (corrigir) # procurar endender melhor os tipos de conexões para implementar isso
-    delay: 0.2
-    loss: 0.01
+    delay: 0
+    loss: 0
     band_wdth: 200
 
 # Server settings
 server:
   memory: 256m
   vCPU_percent: 20
-  image: johann:mqtt
+  image: node:stable
   volume: /flw
   conection: 1
   script: /server.py
 
 # Clients settings list
 client_types:
-  - amount: 2
+  - amount: 5
     name: tipo1
     memory: 1024m
     vCPU_percent: 100
-    image: johann:mqtt
+    image: node:stable
     volume: /flw
     script: /client.py
     conection: 1
     loss: 0
     bw: 10
 
-  - amount: 2
+  - amount: 5
     name: tipo2
     memory: 1024m
     vCPU_percent: 100
-    image: johann:mqtt
+    image: node:stable
     volume: /flw
     script: /client.py
     conection: 1

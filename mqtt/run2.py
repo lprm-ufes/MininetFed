@@ -24,7 +24,6 @@ info('*** Importing configurations\n')
 
 # endereço do arquivo de configurações
 config = Config(CONFIGYAML)
-n_clients_cpu = config.n_clients()+2
 
 general = config.get("general")
 absolute = general["absolute_path"]
@@ -34,9 +33,7 @@ broker_image = general["broker_image"]
 server = config.get("server")
 server_volumes = ""
 server_script = ""
-med_quota =  1/n_clients_cpu 
-
-server_quota = (server["vCPU_percent"]/100) * n_cpu
+server_quota = server["vCPU_percent"] * n_cpu * 1000
 
 server_volumes = [f"{Path.cwd()}:" + server["volume"]]
 
@@ -60,19 +57,19 @@ for i in range(1, config.get("network_components") + 1):
 
 info('*** Adicionando Containers\n')
 # broker container
-broker = net.addDocker('brk1', dimage=broker_image, cpu=med_quota, cpu_period=100000,
+broker = net.addDocker('brk1', dimage=broker_image,
                        volumes=server_volumes,  mem_limit="128mb")
 net.addLink(broker, s[server["conection"] - 1])
 
 # server container
 srv1 = net.addDocker('srv1', dimage=server_images, volumes=server_volumes,
-                     mem_limit=server["memory"], cpu=server_quota, cpu_period=100000)
+                     mem_limit=server["memory"], cpu_quota=server_quota)
 net.addLink(srv1, s[server["conection"] - 1])
 
 
 # client containers
 clientes = list()
-cont = 1
+cont = 0
 qtdDevice = 0
 for client_type in config.get("client_types"):
     for x in range(1, client_type["amount"]+1):
@@ -82,9 +79,8 @@ for client_type in config.get("client_types"):
         else:
             volumes = [f"{Path.cwd()}:" + client_type["volume"]]
         qtdDevice += 1
-        client_quota = client_type["vCPU_percent"] * (med_quota/100)
-        info(f"*** Cliente cota {client_quota} ***")
-        d = net.addDocker(f'sta{client_type["name"]}{x}', cpu=client_quota, cpu_period=100000,
+        client_quota = client_type["vCPU_percent"] * n_cpu*1000
+        d = net.addDocker(f'sta{client_type["name"]}{x}', cpu_quota=client_quota,
                           dimage=client_type["image"], volumes=volumes,  mem_limit=client_type["memory"])
         net.addLink(d, s[client_type['conection'] - 1],
                     loss=client_type["loss"], bw=client_type["bw"])

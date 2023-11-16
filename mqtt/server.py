@@ -13,7 +13,7 @@ n = len(sys.argv)
 # check args
 if (n != 7):
     logging.critical("incorrect use of server.py arguments")
-    print("correct use: python server.py <broker_address> <min_clients> <clients_per_round> <num_rounds> <accuracy_threshold>.")
+    print("correct use: python server.py <broker_address> <min_clients> <clients_per_round> <num_rounds> <accuracy_threshold>. <log_file_name")
     exit()
 
 # MOSQUITTO (CONTAINER)
