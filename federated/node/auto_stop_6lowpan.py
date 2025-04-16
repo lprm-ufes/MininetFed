@@ -10,7 +10,8 @@ class AutoStop6 (DockerSensor):
 
     def __init__(self, name, dimage=DEFAULT_IMAGE_6, volumes=[], **kwargs):
         self.name = name
-
+        self.battery_capacity = 0.1
+        self.remaining_capacity = 10000
         DockerSensor.__init__(self, name, dimage=dimage,
                               volumes=volumes, **kwargs)
 
