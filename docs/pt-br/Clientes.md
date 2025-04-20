@@ -1,5 +1,13 @@
 ## Como implementar novos Trainers
 
+> Observação importante:
+>
+> Após a atualização de qualquer função implementável pelo usuário da ferramenta, é necessário rodar o instalador novamente para que essas modificações sejam acessíveis de maneira global.
+>
+> ```bash
+> sudo ./scripts/install.sh
+> ```
+
 Para criar um Trainer personalizado, é indicado que se use algum dos Trainers fornecidos como exemplo como base e modifique o seu modelo, dataset, e manipulações dos dados como desejar.
 
 Para que o MiniNetFED reconheça o Trainer como um Trainer válido, devem haver pelo menos os seguintes métodos implementados na classe criada:
