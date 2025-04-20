@@ -82,6 +82,10 @@ A few seconds after execution starts, several windows are expected to open. Thes
 After execution ends, all windows will close automatically. The results can be checked in the log file idevelopment
 If any issues occur during execution, use the following command to delete containers and clean Mininet:
 
+# Troubleshooting
+
+If any problems occur during execution, use the following command to delete the containers and clean up Mininet:
+
 ```bash
 mnf_clean
 ```
