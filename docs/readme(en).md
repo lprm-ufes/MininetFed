@@ -1,4 +1,4 @@
-# Documentation Version
+<!-- # Documentation Version
 
 v1.0.0
 
@@ -23,4 +23,4 @@ Its main features include:
 - [Clients](en/Clients.md)
 - [Further Informations](en/Further-Informations.md)
 - [Server](en/Server.md)
-- [Settings](en/Settings.md)
+- [Settings](en/Settings.md) -->

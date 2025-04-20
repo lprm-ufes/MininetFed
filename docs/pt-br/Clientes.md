@@ -1,4 +1,4 @@
-# Cliente padrão
+<!-- # Cliente padrão -->
 
 ## Como alterar entre os trainers
 

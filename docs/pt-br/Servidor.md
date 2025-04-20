@@ -1,4 +1,4 @@
-# Server padrão
+<!-- # Server padrão -->
 
 ## Como alterar entre funções de seleção de clientes
 

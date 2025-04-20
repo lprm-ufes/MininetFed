@@ -1,4 +1,4 @@
-# Versão da documentação
+<!-- # Versão da documentação
 
 v1.0.0
 
@@ -33,4 +33,4 @@ A suas principais funcionalidades incluem:
 - [Clients](en/Clients.md>)
 - [Further Informations](en/Further-Informations.md)
 - [Server](en/Server.md)
-- [Settings](en/Settings.md)
+- [Settings](en/Settings.md) -->
