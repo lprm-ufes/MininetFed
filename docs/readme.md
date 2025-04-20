@@ -2,7 +2,7 @@
 
 v1.0.1
 
-# MiniNetFED
+# MininetFed
 
 <img align="left" src="https://github.com/lprm-ufes/MininetFed/blob/main/FED.svg" alt="logo" width="200"/>
 MininetFed is a federated learning environment emulation tool based on Mininet and Containernet.
