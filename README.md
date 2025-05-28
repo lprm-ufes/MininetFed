@@ -1,57 +1,48 @@
-# MininetFed
+# MiniNetFED
 
-<img align="left" src="https://github.com/lprm-ufes/MininetFed/blob/main/FED.svg" alt="logo" width="225"/>
-
-MininetFed is a tool for emulating federated learning environments based on Mininet and Containernet.
+MininetFed is a federated learning environment emulation tool based on Mininet and Containernet.
 
 Its main features include:
 
-- Adding new Mininet nodes: Server, Client
-  - These containerized nodes allow configuring connection characteristics, RAM availability, CPU, etc.
-- Automatic definition of a communication environment via MQTT
-- Facilitating the implementation of new aggregation and client selection functions
-- Allowing the implementation of new trainers to be executed on clients (model + dataset + manipulations)
+- **Addition of new Mininet nodes**: Server, Client. These containerized nodes allow configuration of connection characteristics, available RAM, CPU, etc.
+- **Automatic setup of a communication environment using MQTT**
+- **Facilitates the implementation of new aggregation and client selection functions**
+- **Enables the development of new trainers** to be executed on the clients (model + dataset + manipulations)
 
-# Full Documentation
+# Getting Started with MiniNetFED
 
-[Link](https://github.com/lprm-ufes/MininetFed/tree/main/docs)
+### Cloning the MiniNetFED Repository:
 
-# Getting Started with MininetFed
-
-> **Important Note**
-> If you are using the OVA file in VirtualBox, skip directly to [Running MininetFed with an Example](#running-mininetfed-with-an-example)
+```
+git clone -b development https://github.com/lprm-ufes/MininetFed.git
+```
 
 ## Prerequisites
 
-### Install Containernet
+### Installing ContainerNet
+MiniNetFED requires ContainerNet. Before installing it, install its dependencies using the following command:
 
-The recommended version for using all MininetFed features can be found in the following repository:
-
-```bash
-git clone https://github.com/ramonfontes/containernet.git
+```
+sudo apt-get install ansible git aptitude
 ```
 
-To install, run the following commands:
+#### Tested ContainerNet Version (Recommended)
 
-```bash
+The recommended version for full MiniNetFED functionality can be found in the following repository:
+
+```
+git clone https://github.com/ramonfontes/containernet.git
 cd containernet
 sudo util/install.sh -W
 ```
 
-> Note that it is no longer necessary to install Docker Engine separately, as the recommended version of Containernet already includes Docker Engine.
+### Generating Docker Images
 
-## Installing MininetFed
-
-Clone the MininetFed repository:
+MiniNetFED also depends on some preconfigured Docker images. Use the following commands to build these images:
 
 ```bash
-git clone -b development https://github.com/lprm-ufes/MininetFed.git
-```
-
-To install, simply run the installation script:
-
-```bash
-sudo ./scripts/install.sh
+cd containernet
+sudo ./docker/create_images.sh
 ```
 
 ## Running the First Example
@@ -79,8 +70,12 @@ A few seconds after execution starts, several windows are expected to open. Thes
 
 <img src="https://github.com/lprm-ufes/MininetFed/blob/main/imgs/execution.png" alt="screenshot of opened windows" />
 
-After execution ends, all windows will close automatically. The results can be checked in the log file idevelopment
-If any issues occur during execution, use the following command to delete containers and clean Mininet:
+After execution ends, all windows will close automatically. The results can be checked in the log file idevelopment.
+
+
+# Documentation
+https://github.com/lprm-ufes/MininetFed/tree/development/docs
+
 
 # Troubleshooting
 
