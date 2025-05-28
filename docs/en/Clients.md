@@ -1,55 +1,26 @@
-# Default Client
+## How to implement new Trainers
 
-## Switching between Trainers
+> Important Note:
+>
+> After updating any user-implementable function in the tool, you must run the installer again for these modifications to be globally accessible.
+>
+> ```bash
+> sudo ./scripts/install.sh
+> ```
 
-In the client provided with MiniNetFED, one of the features is the ability to choose between the sample Trainers or implement your own Trainer for experiments.
+To create a custom Trainer, it is recommended to use one of the provided Trainers as a base and modify its model, dataset, and data manipulations as desired.
 
-To switch between trainers, access the following file:
-
-```
-./client/trainer/__init__.py
-```
-
-Edit the name of the file from which you want to import the Trainer and the name of the implemented class.
-
-Example:
+For MiniNetFED to recognize the Trainer as a valid Trainer, the created class must implement at least the following methods:
 
 ```python
-from .trainerhar import TrainerHar as Trainer
-```
-
-**Important notes:** Do not change **as Trainer**. It ensures that, for any chosen Trainer, other client components will recognize it correctly.
-
-Note also that, as shown, new trainers implemented must be contained in the /client/trainer directory.
-
-## Implementing New Trainers
-
-To create a customized Trainer, it is recommended to use one of the sample Trainers as a base and modify its model, dataset, and data manipulations as desired.
-
-For MiniNetFED to recognize the Trainer as a valid Trainer, at least the following methods must be implemented in the created class:
-
-```python
-def __init__(self, ext_id, mode) -> None:
+def __init__(self, id, name, args) -> None:
     """
-    Initializes the Trainer object with the external ID and operation mode.
+    Initializes the Trainer object with the provided ID, name, and arguments.
     """
 
 def set_args(self, args):
     """
-    Defines arguments for the Trainer object when they are passed from the config.yaml file.
-    """
-
-def get_num_samples(self):
-    """
-    Returns the number of training data samples.
-    """
-
-def split_data(self):
-    """
-    Loads the data and divides it into training and test sets.
-    Returns the training and test data in the following format:
-
-    return x_train, y_train, x_test, y_test
+    Sets the arguments for the Trainer object when they are provided in the config.yaml configuration file.
     """
 
 def train_model(self):
@@ -57,10 +28,19 @@ def train_model(self):
     Trains the model on the training data.
     """
 
-def eval_model(self):
+def get_weights(self):
     """
-    Evaluates the model on the test data.
-    Returns the accuracy of the model as a value between 0 and 1.
+    Returns the model's weights. These can be in any format as long as they are compatible with the chosen aggregation function and the implementation of the update_weights function.
+    """
+
+def get_num_samples(self):
+    """
+    Returns the number of samples in the training data.
+    """
+
+def get_training_args(self):
+    """
+    (Optional) Returns the training-specific arguments of the Trainer.
     """
 
 def all_metrics(self):
@@ -69,25 +49,31 @@ def all_metrics(self):
     Returns a dictionary of all metrics used by the model.
     """
 
-def get_weights(self):
-    """
-    Returns the model weights. They can be in any format, provided it matches the aggregation function chosen and the implementation of the update_weights function
-    """
-
 def update_weights(self, weights):
     """
-    Updates the model weights with the given weights. They can be in any format, provided it matches the aggregation function chosen and the implementation of the get_weights function.
+    Updates the model's weights with the given weights. These can be in any format as long as they are compatible with the chosen aggregation function and the implementation of the get_weights function.
     """
 
-def set_stop_true(self):
+def agg_response_extra_info(self, info):
     """
-    Sets the stop flag of the TrainerHar object to True.
+    (Optional) Processes additional information sent by the server after aggregation.
     """
-    self.stop_flag = True
+
+def eval_model(self):
+    """
+    Evaluates the model on the test data.
+    Returns the model's accuracy as a value between 0 and 1.
+    """
 
 def get_stop_flag(self):
     """
-    Returns the stop flag of the TrainerHar object.
+    Returns the stop flag of the Trainer object.
     """
     return self.stop_flag
+
+def set_stop_true(self):
+    """
+    Sets the stop flag of the Trainer object to True.
+    """
+    self.stop_flag = True
 ```
