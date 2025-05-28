@@ -20,7 +20,7 @@ class ServerSensor (DockerSensor):
 
         if cpu_quota is not None:
             kwargs["cpu_period"] = CPU_PERIOD
-            kwargs["cpu_quota"] = dimage
+            kwargs["cpu_quota"] = cpu_quota
 
         super().__init__(name, dimage=dimage,
                          volumes=volumes, mem_limit=mem_limit, **kwargs)
