@@ -1,4 +1,4 @@
-# MiniNetFED
+# MininetFed
 
 MininetFed is a federated learning environment emulation tool based on Mininet and Containernet.
 
@@ -9,9 +9,9 @@ Its main features include:
 - **Facilitates the implementation of new aggregation and client selection functions**
 - **Enables the development of new trainers** to be executed on the clients (model + dataset + manipulations)
 
-# Getting Started with MiniNetFED
+# Getting Started with MininetFed
 
-### Cloning the MiniNetFED Repository:
+### Cloning the MininetFed Repository:
 
 ```
 git clone -b development https://github.com/lprm-ufes/MininetFed.git
@@ -20,7 +20,8 @@ git clone -b development https://github.com/lprm-ufes/MininetFed.git
 ## Prerequisites
 
 ### Installing ContainerNet
-MiniNetFED requires ContainerNet. Before installing it, install its dependencies using the following command:
+
+MininetFed requires ContainerNet. Before installing it, install its dependencies using the following command:
 
 ```
 sudo apt-get install ansible git aptitude
@@ -28,7 +29,7 @@ sudo apt-get install ansible git aptitude
 
 #### Tested ContainerNet Version (Recommended)
 
-The recommended version for full MiniNetFED functionality can be found in the following repository:
+The recommended version for full MininetFed functionality can be found in the following repository:
 
 ```
 git clone https://github.com/ramonfontes/containernet.git
@@ -38,11 +39,19 @@ sudo util/install.sh -W
 
 ### Generating Docker Images
 
-MiniNetFED also depends on some preconfigured Docker images. Use the following commands to build these images:
+MininetFed also depends on some preconfigured Docker images. Use the following commands to build these images:
 
 ```bash
 cd containernet
 sudo ./docker/create_images.sh
+```
+
+## Installing MininetFed
+
+To install, simply run the installation script:
+
+```bash
+sudo ./scripts/install.sh
 ```
 
 ## Running the First Example
@@ -72,10 +81,9 @@ A few seconds after execution starts, several windows are expected to open. Thes
 
 After execution ends, all windows will close automatically. The results can be checked in the log file idevelopment.
 
-
 # Documentation
-https://github.com/lprm-ufes/MininetFed/tree/development/docs
 
+https://github.com/lprm-ufes/MininetFed/tree/development/docs
 
 # Troubleshooting
 
@@ -86,7 +94,3 @@ mnf_clean
 ```
 
 After cleaning, try running it again.
-
-> **Important Warning:** The cleaning script may affect other Docker containers running on the same machine that are **not** related to MininetFed.
->
-> Ensure beforehand that nothing important is running in containers before proceeding with the script execution.
