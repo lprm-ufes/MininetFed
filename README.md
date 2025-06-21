@@ -9,6 +9,9 @@ Its main features include:
 - **Facilitates the implementation of new aggregation and client selection functions**
 - **Enables the development of new trainers** to be executed on the clients (model + dataset + manipulations)
 
+# Mailing List  
+[https://groups.google.com/forum/#!forum/mininetfed-discuss](https://groups.google.com/g/mininetfed-discuss)
+
 # Getting Started with MiniNetFED
 
 ### Cloning the MiniNetFED Repository:
