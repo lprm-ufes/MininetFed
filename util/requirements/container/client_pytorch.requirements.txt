@@ -1,6 +1,6 @@
 numpy==1.25.2
 pandas==2.1.4
 paho-mqtt==1.6.1
-torch==2.2.1
+torch==2.7.1-rc1
 torchvision==0.17.1
 torchaudio==2.2.1
