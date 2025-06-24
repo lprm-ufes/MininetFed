@@ -25,12 +25,14 @@ Activate the environment with the following command
 Example standard
 
 ```
+cd util
 python3 analysis.py analysis.yaml
 ```
 
 General example
 
 ```
+cd util
 python3 analysis.py (analysis_configuration.yaml)
 ```
 

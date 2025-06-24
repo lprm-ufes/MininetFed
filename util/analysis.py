@@ -5,7 +5,6 @@ from analysis.config import Config
 from analysis.process_log import File
 from analysis.generate_graphics import Graphics
 from analysis.dataset_analysis_graphics import DatasetAnalysisGraphics
-# from .federated.experiment import Experiment
 
 DATASET_ANALYSIS = True
 try:
