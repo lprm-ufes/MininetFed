@@ -53,7 +53,7 @@ sudo ./docker/create_images.sh
 A basic example can be executed to test MininetFed's functionality:
 
 ```bash
-sudo python3 examples/basic/basic.py
+sudo python3 examples/basic.py
 ```
 
 ### Expected Result
