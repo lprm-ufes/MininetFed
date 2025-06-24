@@ -93,3 +93,18 @@ After cleaning, try running it again.
 > **Important Warning:** The cleaning script may affect other Docker containers running on the same machine that are **not** related to MininetFed.
 >
 > Ensure beforehand that nothing important is running in containers before proceeding with the script execution.
+
+# How to Cite
+
+If you use MininetFed in your research or work, please cite the following paper:
+
+```
+@inproceedings{sarmento2024mininetfed,  
+  title={MininetFed: A tool for assessing client selection, aggregation, and security in Federated Learning},  
+  author={Sarmento, Eduardo MM and Bastos, Johann JS and Villaca, Rodolfo S and Comarela, Giovanni and Mota, Vin{\'\i}cius FS},  
+  booktitle={2024 IEEE 10th World Forum on Internet of Things (WF-IoT)},  
+  pages={1--6},  
+  year={2024},  
+  organization={IEEE}  
+}  
+```
