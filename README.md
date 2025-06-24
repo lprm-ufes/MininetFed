@@ -26,7 +26,7 @@ git clone -b development https://github.com/lprm-ufes/MininetFed.git
 MiniNetFED requires ContainerNet. Before installing it, install its dependencies using the following command:
 
 ```
-sudo apt-get install ansible git aptitude
+sudo apt install ansible git aptitude
 ```
 
 #### Tested ContainerNet Version (Recommended)
@@ -53,7 +53,7 @@ sudo ./docker/create_images.sh
 A basic example can be executed to test MininetFed's functionality:
 
 ```bash
-sudo python3 examples/basic/topology.py
+sudo python3 examples/basic/basic.py
 ```
 
 ### Expected Result

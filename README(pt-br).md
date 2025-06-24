@@ -59,7 +59,7 @@ sudo ./scripts/install.sh
 Um exemplo básico pode ser executado para testar o funcionamento do MininetFed:
 
 ```bash
-sudo python3 examples/basic/topology.py
+sudo python3 examples/basic/basic.py
 ```
 
 ### Resultado esperado
