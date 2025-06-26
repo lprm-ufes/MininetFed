@@ -13,7 +13,7 @@ h5py==3.11.0
 idna==3.7
 imbalanced-learn==0.12.2
 joblib==1.4.2
-keras==2.15.0
+keras==3.8.0
 libclang==18.1.1
 Markdown==3.6
 MarkupSafe==2.1.5
@@ -44,6 +44,6 @@ termcolor==2.4.0
 threadpoolctl==3.5.0
 typing_extensions==4.11.0
 tzdata==2024.1
-urllib3==2.2.1
-Werkzeug==3.0.3
+urllib3==2.5.0
+Werkzeug==3.0.6
 wrapt==1.14.1

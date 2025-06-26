@@ -16,7 +16,7 @@ h5py==3.11.0
 idna==3.7
 imbalanced-learn==0.12.2
 joblib==1.4.2
-keras==2.15.0
+keras==3.8.0
 kiwisolver==1.4.5
 libclang==18.1.1
 Markdown==3.6
