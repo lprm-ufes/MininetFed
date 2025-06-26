@@ -24,7 +24,7 @@ opt-einsum==3.3.0
 packaging==24.0
 paho-mqtt==1.6.1
 pandas==2.1.4
-protobuf==4.23.4
+protobuf==4.25.8
 pyasn1==0.6.0
 pyasn1_modules==0.4.0
 python-dateutil==2.9.0.post0
