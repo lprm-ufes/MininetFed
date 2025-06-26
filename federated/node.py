@@ -9,7 +9,7 @@ try:
 except:
     from mininet.term import makeTerm
 
-from ..external_broker import ExtBroker
+from federated.external_broker import ExtBroker
 
 VOLUME_FOLDER = 'flw'
 CPU_PERIOD = 100000
@@ -93,8 +93,6 @@ class Broker (Docker):
         self.cmd("iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE")
 
     def run(self):
-        # Docker.start(self)
-
         if self.mode == "internal":
             makeTerm(
                 self, cmd=f'bash -c "mosquitto -c {VOLUME_FOLDER}/mosquitto/mosquitto.conf"')
@@ -152,7 +150,6 @@ class ClientSensor (DockerSensor):
 
     def __init__(self, name, script, numeric_id, args={}, dimage=None, cpu_quota=None, volumes=[], mem_limit=None, **kwargs):
         self.name = name
-        # self.trainer_mode = args['mode']
         self.numeric_id = numeric_id
         self.script = script
         self.args = args
@@ -255,18 +252,12 @@ class ServerSensor (DockerSensor):
     def run(self, broker_addr, experiment_controller):
         self.experiment = experiment_controller
         self.broker_addr = broker_addr
-        # super().start()
-# . {ENVS_FOLDER}/{self.env}/bin/activate &&
         cmd = f"""bash -c "python3 {self.script} {self.broker_addr} {self.experiment.getFileName()} 2> {self.experiment.getFileName(extension='''''')}_err.txt """
 
         if self.args != None and len(self.args) != 0:
             json_str = json.dumps(self.args).replace('"', '\\"')
             cmd += f"'{json_str}'"
         cmd += '" ;'
-
-        # funcionar como gateway
-        # self.cmd("route add default gw %s" %
-        #          self.broker_addr)
 
         makeTerm(self, cmd=cmd)
 

@@ -3,7 +3,7 @@ from datetime import datetime
 import shutil
 import os
 import stat
-from .node.common import *
+from federated.node import VOLUME_FOLDER
 
 
 class Experiment:

@@ -39,12 +39,18 @@ cd containernet
 sudo util/install.sh -W
 ```
 
+### Compiling MininteFed
+
+```bash
+cd MininetFed
+sudo make install
+```
+
 ### Generating Docker Images
 
 MiniNetFED also depends on some preconfigured Docker images. Use the following commands to build these images:
 
 ```bash
-cd containernet
 sudo ./docker/create_images.sh
 ```
 
