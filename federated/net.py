@@ -28,6 +28,7 @@ class MininetFed(Containernet):
             self.experiment_controller.copyFileToExperimentFolder(
                 topology_file)
         super().__init__(**kwargs)
+        self.configureMininetFedInternalDevices()
 
     def addAutoStop6(self):
         self.auto_stop = self.addSensor('auto_stop', privileged=True,

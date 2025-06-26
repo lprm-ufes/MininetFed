@@ -10,9 +10,6 @@ try:
 except:
     pass
 
-# from trainer import Trainer
-
-
 def criar_objeto(pacote, nome_classe, **atributos):
     try:
         modulo = importlib.import_module(f"{pacote}")
@@ -28,7 +25,7 @@ n = len(sys.argv)
 print(f"N: {n}", file=sys.stderr)
 
 # check if client_instaciation_args are present
-if (n != 4 and n != 5):
+if n != 4 and n != 5:
     print(
         "correct use: python client.py <broker_address> <name> <id> [client_instanciation_args].")
     exit()
@@ -44,11 +41,6 @@ if len(sys.argv) == 5 and (sys.argv[4] is not None):
 trainer_class = CLIENT_INSTANTIATION_ARGS.get("trainer_class")
 if trainer_class is None:
     trainer_class = "TrainerMNIST"
-
-# print(f"{CLIENT_INSTANTIATION_ARGS}", file=sys.stderr)
-# print(f"{sys.argv}", file=sys.stderr)
-
-# used by json.dump when it enconters something that can't be serialized
 
 selected = False
 

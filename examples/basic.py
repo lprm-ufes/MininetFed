@@ -30,8 +30,6 @@ def topology():
     info('*** Adding Nodes...\n')
     s1 = net.addSwitch("s1", failMode='standalone')
 
-    net.configureMininetFedInternalDevices()
-
     srv1 = net.addHost('srv1', cls=Server, script="server/server.py",
                        args=server_args, volumes=volumes,
                        dimage='mininetfed:server', env="../env")
@@ -43,8 +41,10 @@ def topology():
                                    dimage='mininetfed:client',
                                    env="../env", numeric_id=i))
 
-    info('*** Creating links...\n')
+    info('*** Connecting to the MininetFed Internal Devices...\n')
     net.connectMininetFedInternalDevices()
+
+    info('*** Creating links...\n')
     net.addLink(srv1, s1)
     for client in clients:
         net.addLink(client, s1)

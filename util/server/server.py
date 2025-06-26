@@ -14,9 +14,6 @@ def default(obj):
             return obj.tolist()
         else:
             return obj.item()
-    # elif type(obj).__module__ == torch.__name__:
-    #     if isinstance(obj, torch.Tensor):
-    #         return obj.tolist()
     else:
         try:
             from Pyfhel import PyCtxt
@@ -36,7 +33,7 @@ def server():
     n = len(sys.argv)
 
     # check args
-    if (n < 4):
+    if n < 4:
         logging.critical("incorrect use of server.py arguments")
         # <min_clients> <num_rounds> <accuracy_threshold>
         print("correct use: python server.py <broker_address> <arquivo.log> <args>.")
@@ -125,8 +122,8 @@ def server():
         controller.update_num_responses()
 
     # connect on queue
-    controller = Controller(min_trainers=min_trainers,
-                            num_rounds=nun_rounds, client_selector=client_selector, aggregator=aggregator)
+    controller = Controller(min_trainers=min_trainers, num_rounds=nun_rounds,
+                            client_selector=client_selector, aggregator=aggregator)
     client = mqtt.Client('server')
     client.connect(broker_addr, bind_port=1883)
     client.on_connect = on_connect

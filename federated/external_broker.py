@@ -3,6 +3,9 @@ import os
 
 
 class ExtBroker:
+    def __init__(self):
+        self.process = None
+
     def run_ext_brk(self):
         command = (
             "sudo docker run --name ext_brk -it "
