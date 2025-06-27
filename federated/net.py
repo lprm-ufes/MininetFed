@@ -14,6 +14,10 @@ class MininetFed(Containernet):
                  default_connection='s1', date_prefix=False, broker_mode="internal",
                  ext_broker_ip='127.0.0.1', topology_file=None, **kwargs):
 
+        self.broker_addr = None
+        self.apsensor = None
+        self.auto_stop = None
+        self.brk = None
         self.default_connection = default_connection
         self.ext_broker_ip = ext_broker_ip
         self.broker_mode = broker_mode
