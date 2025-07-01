@@ -114,3 +114,7 @@ If you use MininetFed in your research or work, please cite the following paper:
   organization={IEEE}  
 }  
 ```
+
+# Papers That Used MininetFed
+
+See the complete list of citations [here](docs/en/citations.md).
