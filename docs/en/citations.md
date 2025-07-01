@@ -1,4 +1,4 @@
-# Papers That Used MininetFed
+# Papers that Used MininetFed
 
 ### Papers Published in Events Proceedings
 
