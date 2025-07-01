@@ -1,6 +1,6 @@
 # Papers that Used MininetFed
 
-### Papers Published in Events Proceedings
+### Papers Published in Event Proceedings
 
 [1] J. Bastos, E. Sarmento, R. Villaça, and V. Mota. " MiniNetFED: Uma Ferramenta para Emulação e Análise de Aprendizado Federado com Dispositivos Heterogêneos", in *Anais Estendidos do XLII Simpósio Brasileiro de Redes de Computadores e Sistemas Distribuídos*, Niterói/RJ, 2024, pp. 57-64, doi: https://doi.org/10.5753/sbrc_estendido.2024.3226.
 
