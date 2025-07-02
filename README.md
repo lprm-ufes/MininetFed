@@ -115,6 +115,15 @@ If you use MininetFed in your research or work, please cite the following paper:
 }  
 ```
 
-# Papers That Used MininetFed
+# Papers that Used MininetFed
 
 See the complete list of citations [here](docs/en/citations.md).
+
+# Development Team
+
+[Eduardo Sarmento](https://github.com/eduardo-sarmento)
+[Johann Jakob Bastos](https://github.com/jjakob10)
+[João Pedro Batista](https://github.com/joaoBatista04)
+[Ramon Fontes](https://github.com/ramonfontes)
+[Rodolfo Villaça](https://github.com/rodolfovillaca)
+[Vinícius Mota](https://github.com/vfsmota)
