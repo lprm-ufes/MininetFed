@@ -15,12 +15,6 @@ Its main features include:
 - Facilitating the implementation of new aggregation and client selection functions
 - Allowing the implementation of new trainers to be executed on the clients (model + dataset + manipulations)
 
-# Pages (pt-br)
-
-- [Clientes](pt-br/Clientes.md)
-- [Script de análise](pt-br/Script-de-análise.md)
-- [Servidor](pt-br/Servidor.md)
-
 # Pages (en)
 
 - [Analysis script](en/Analysis-script.md)

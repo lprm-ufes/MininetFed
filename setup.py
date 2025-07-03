@@ -11,7 +11,7 @@ setup(
     author='jjakob10',
     author_email='johann.bastos@edu.ufes.br',
     url='https://github.com/lprm-ufes/MininetFed',
-    packages=find_packages(exclude=('client*', 'analysis*')),
+    packages=['federated'],
     include_package_data=True,
     package_data={
         'mininetfed.scripts': ['clean.sh'],

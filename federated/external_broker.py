@@ -3,6 +3,9 @@ import os
 
 
 class ExtBroker:
+    def __init__(self):
+        self.process = None
+
     def run_ext_brk(self):
         command = (
             "sudo docker run --name ext_brk -it "
@@ -15,8 +18,7 @@ class ExtBroker:
             # Executa o comando em um novo terminal usando xterm
             self.process = subprocess.Popen(
                 ["xterm", "-e", f"{command}; exec bash"],
-                preexec_fn=os.setpgrp  # Para evitar que o terminal feche imediatamente
-            )
+                preexec_fn=os.setpgrp)
             print(
                 "O container do broker externo está rodando em uma nova janela de xterm.")
         except subprocess.CalledProcessError as e:

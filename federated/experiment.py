@@ -3,11 +3,14 @@ from datetime import datetime
 import shutil
 import os
 import stat
-from .node.common import *
+from federated.node import VOLUME_FOLDER
 
 
 class Experiment:
     def __init__(self, experiments_folder, experiment_name, create_new=True):
+        self.path = None
+        self.now = None
+        self.local_path = None
         self.name = experiment_name
         self.experiments_folder = experiments_folder
         self.create_new = create_new
@@ -15,9 +18,9 @@ class Experiment:
         self.create_folder()
 
     def create_client_log_folder(self):
-        caminho = Path("client_log")
-        if not caminho.exists():
-            os.makedirs(caminho)
+        path = Path("client_log")
+        if not path.exists():
+            os.makedirs(path)
 
     def create_folder(self):
         # Salve a máscara atual

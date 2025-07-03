@@ -9,7 +9,12 @@ Its main features include:
 - **Facilitates the implementation of new aggregation and client selection functions**
 - **Enables the development of new trainers** to be executed on the clients (model + dataset + manipulations)
 
+
+# Mailing List  
+[https://groups.google.com/forum/#!forum/mininetfed-discuss](https://groups.google.com/g/mininetfed-discuss)
+
 # Getting Started with MininetFed
+
 
 ### Cloning the MininetFed Repository:
 
@@ -24,7 +29,7 @@ git clone -b development https://github.com/lprm-ufes/MininetFed.git
 MininetFed requires ContainerNet. Before installing it, install its dependencies using the following command:
 
 ```
-sudo apt-get install ansible git aptitude
+sudo apt install ansible git aptitude
 ```
 
 #### Tested ContainerNet Version (Recommended)
@@ -37,12 +42,18 @@ cd containernet
 sudo util/install.sh -W
 ```
 
+### Compiling MininetFed
+
+```bash
+cd MininetFed
+sudo make install
+```
+
 ### Generating Docker Images
 
 MininetFed also depends on some preconfigured Docker images. Use the following commands to build these images:
 
 ```bash
-cd containernet
 sudo ./docker/create_images.sh
 ```
 
@@ -59,7 +70,7 @@ sudo ./scripts/install.sh
 A basic example can be executed to test MininetFed's functionality:
 
 ```bash
-sudo python3 examples/basic/topology.py
+sudo python3 examples/basic.py
 ```
 
 ### Expected Result
@@ -94,3 +105,32 @@ mnf_clean
 ```
 
 After cleaning, try running it again.
+
+# How to Cite
+
+If you use MininetFed in your research or work, please cite the following paper:
+
+```
+@inproceedings{sarmento2024mininetfed,  
+  title={MininetFed: A tool for assessing client selection, aggregation, and security in Federated Learning},  
+  author={Sarmento, Eduardo MM and Bastos, Johann JS and Villaca, Rodolfo S and Comarela, Giovanni and Mota, Vin{\'\i}cius FS},  
+  booktitle={2024 IEEE 10th World Forum on Internet of Things (WF-IoT)},  
+  pages={1--6},  
+  year={2024},  
+  organization={IEEE}  
+}  
+```
+
+# Papers that Used MininetFed
+
+See the complete list of citations [here](docs/en/citations.md).
+
+# Development Team
+
+[Eduardo Sarmento](https://github.com/eduardo-sarmento)  
+[Johann Jakob Bastos](https://github.com/jjakob10)  
+[João Pedro Batista](https://github.com/joaoBatista04)  
+[Ramon Fontes](https://github.com/ramonfontes)  
+[Rodolfo Villaça](https://github.com/rodolfovillaca)  
+[Vinícius Mota](https://github.com/vfsmota)  
+

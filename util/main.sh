@@ -17,19 +17,19 @@ for file in "$@"; do
         DEST_FILE="temp_top.py"
 
         # Copia o arquivo para o diretório raiz do script
-        echo "Copiando $file para $DEST_FILE"
+        echo "Copying $file to $DEST_FILE"
         cp "$file" "$DEST_FILE"
 
         # Executa o arquivo copiado
-        echo "Executando: sudo python3 $DEST_FILE"
+        echo "Running: sudo python3 $DEST_FILE"
         sudo python3 "$DEST_FILE"
 
         # Remove o arquivo copiado após a execução
         if [ "$DEST_FILE" != "$file" ]; then
-            echo "Removendo $DEST_FILE"
+            echo "Removing $DEST_FILE"
             rm "$DEST_FILE"
         fi
     else
-        echo "Erro: Arquivo $file não encontrado."
+        echo "Error: File $file not found."
     fi
 done

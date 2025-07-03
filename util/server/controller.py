@@ -102,8 +102,7 @@ class Controller:
                     agg_response[r]["weights"] = [w.tolist()
                                                   for w in agg_response[r]["weights"]]
                 except:
-                    raise Exception(
-                        f"Error: O agregador não retornou os weights do trainer {r}!")
+                    raise Exception(f"Error: O agregador não retornou os weights do trainer {r}!")
             agg_response_dict = agg_response
         else:
             # for r in self.client_training_response:

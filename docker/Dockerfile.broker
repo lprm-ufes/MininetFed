@@ -7,7 +7,7 @@ FROM ubuntu:focal
 RUN mkdir -p /flw
 
 # Copiar a pasta mosquitto do host para a pasta flw no container
-COPY ../mosquitto /flw/
+COPY ../util/mosquitto /flw/
 
 RUN apt-get update
 RUN apt-get install -y \

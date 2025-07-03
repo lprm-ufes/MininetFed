@@ -25,21 +25,21 @@ RUN apt-get install -y python3.10
 RUN ln -sf /usr/bin/python3.10 /usr/bin/python3
 
 # Instale o pip para Python 3.10
-RUN apt-get install -y \
+RUN apt install -y \
     curl \
     python3.10-distutils
 RUN curl https://bootstrap.pypa.io/get-pip.py | python3
 
 # Instale o venv para Python 3.10
-RUN apt-get install -y python3.10-venv
+RUN apt install -y python3.10-venv
 
 RUN python3.10 -m pip install --upgrade pip
 
 EXPOSE 1883
 EXPOSE 8883
 
-COPY ../requirements/container/auto_wait.requirements.txt .
-COPY ../stop.py .
+COPY ../util/requirements/container/auto_wait.requirements.txt .
+COPY ../util/stop.py .
 
 # Install the Python dependencies
 RUN python3.10 -m pip install --no-cache-dir -r auto_wait.requirements.txt
