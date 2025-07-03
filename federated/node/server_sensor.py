@@ -24,7 +24,6 @@ class ServerSensor (DockerSensor):
 
         if 'battery_capacity' in kwargs:
             self.battery_capacity = kwargs['battery_capacity']
-            self.remaining_capacity = 10000
 
         super().__init__(name, dimage=dimage,
                          volumes=volumes, mem_limit=mem_limit, **kwargs)
