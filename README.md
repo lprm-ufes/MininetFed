@@ -19,7 +19,7 @@ Its main features include:
 ### Cloning the MininetFed Repository:
 
 ```
-git clone -b development https://github.com/lprm-ufes/MininetFed.git
+git clone https://github.com/lprm-ufes/MininetFed
 ```
 
 ## Prerequisites
