@@ -57,13 +57,15 @@ MininetFed also depends on some preconfigured Docker images. Use the following c
 sudo ./docker/create_images.sh
 ```
 
+<!--
 ## Installing MininetFed
 
-To install, simply run the installation script:
+ To install, simply run the installation script:
 
 ```bash
 sudo ./scripts/install.sh
 ```
+-->
 
 ## Running the First Example
 
