@@ -33,7 +33,7 @@ class MininetFed(Containernet):
                 topology_file)
         super().__init__(**kwargs)
         if broker_mode == "external":
-            self.configureMininetFedInternalDevices()
+            self.configureBroker()
 
     def addAutoStop6(self):
         self.auto_stop = self.addSensor('auto_stop', privileged=True,
@@ -65,7 +65,7 @@ class MininetFed(Containernet):
         self.apsensor = super().addAPSensor(name, cls, **params)
         return self.apsensor
 
-    def configureMininetFedInternalDevices(self):
+    def configureBroker(self):
         self.brk = super().addHost('brk', cls=Broker, mode=self.broker_mode,
                                    ext_broker_ip=self.ext_broker_ip,
                                    volumes=self.default_volumes,
@@ -75,7 +75,7 @@ class MininetFed(Containernet):
                                          volumes=self.default_volumes,
                                          dimage="mininetfed:auto_wait")
 
-    def connectMininetFedInternalDevices(self, connection="s1"):
+    def connectMininetFedDevices(self, connection="s1"):
         self.addLink(connection, self.brk)
         self.addLink(connection, self.auto_stop)
 

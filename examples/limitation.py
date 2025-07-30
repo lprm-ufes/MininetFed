@@ -51,8 +51,8 @@ def topology():
                                    numeric_id=i, mem_limit=client_mem_lim[i],
                                    cpu_shares=cpu_shares[i]))
 
-    info('*** Connecting to the MininetFed Internal Devices...\n')
-    net.connectMininetFedInternalDevices()
+    info('*** Connecting to the MininetFed Devices...\n')
+    net.connectMininetFedDevices()
 
     info('*** Creating links...\n')
     net.addLink(srv1, s1)

@@ -41,8 +41,8 @@ def topology():
                                    dimage='mininetfed:client',
                                    env="../env", numeric_id=i))
 
-    info('*** Connecting to the MininetFed Internal Devices...\n')
-    net.connectMininetFedInternalDevices()
+    info('*** Connecting to the MininetFed Devices...\n')
+    net.connectMininetFedDevices()
 
     info('*** Creating links...\n')
     net.addLink(srv1, s1)
