@@ -24,7 +24,7 @@ client_args = {"mode": 'random same_samples', 'num_samples': 15000,
 
 
 def topology():
-    net = MininetFed( **experiment_config, controller=[],
+    net = MininetFed( **experiment_config, controller=[], broker_mode="external",
                       default_volumes=volumes, topology_file=sys.argv[0])
 
     info('*** Adding Nodes...\n')

@@ -33,7 +33,7 @@ client_mem_lim = ["512m", "512m", "512m", "512m", "512m",
 
 
 def topology():
-    net = MininetFed(**experiment_config, controller=[],
+    net = MininetFed(**experiment_config, controller=[], broker_mode="external",
                      default_volumes=volumes, topology_file=sys.argv[0])
 
     info('*** Adding Nodes...\n')
