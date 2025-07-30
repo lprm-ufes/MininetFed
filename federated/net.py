@@ -32,7 +32,8 @@ class MininetFed(Containernet):
             self.experiment_controller.copyFileToExperimentFolder(
                 topology_file)
         super().__init__(**kwargs)
-        self.configureMininetFedInternalDevices()
+        if broker_mode == "external":
+            self.configureMininetFedInternalDevices()
 
     def addAutoStop6(self):
         self.auto_stop = self.addSensor('auto_stop', privileged=True,
