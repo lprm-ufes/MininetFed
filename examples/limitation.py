@@ -33,7 +33,7 @@ client_mem_lim = ["512m", "512m", "512m", "512m", "512m",
 
 
 def topology():
-    net = MininetFed(**experiment_config, controller=[], broker_mode="external",
+    net = MininetFed(**experiment_config, controller=[], broker_mode="internal",
                      default_volumes=volumes, topology_file=sys.argv[0])
 
     info('*** Adding Nodes...\n')
@@ -41,13 +41,13 @@ def topology():
 
     srv1 = net.addHost('srv1', cls=Server, script="server/server.py",
                        args=server_args, volumes=volumes,
-                       dimage='mininetfed:server', env="../env")
+                       dimage='mininetfed:server')
 
     clients = []
     for i in range(8):
         clients.append(net.addHost(f'sta{i}', cls=Client, script="client/client.py",
                                    args=client_args, volumes=volumes,
-                                   dimage='mininetfed:client', env="../env",
+                                   dimage='mininetfed:client',
                                    numeric_id=i, mem_limit=client_mem_lim[i],
                                    cpu_shares=cpu_shares[i]))
 

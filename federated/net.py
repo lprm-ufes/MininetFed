@@ -11,7 +11,7 @@ from mn_wifi.sixLoWPAN.link import LoWPAN
 class MininetFed(Containernet):
 
     def __init__(self, experiment_name, experiments_folder, default_volumes,
-                 default_connection='s1', date_prefix=False, broker_mode="internal",
+                 default_connection='s1', date_prefix=False, broker_mode=None,
                  ext_broker_ip='127.0.0.1', topology_file=None, **kwargs):
 
         self.broker_addr = None
@@ -32,7 +32,7 @@ class MininetFed(Containernet):
             self.experiment_controller.copyFileToExperimentFolder(
                 topology_file)
         super().__init__(**kwargs)
-        if broker_mode == "external":
+        if self.broker_mode == "internal" or self.broker_mode == "external":
             self.configureBroker()
 
     def addAutoStop6(self):

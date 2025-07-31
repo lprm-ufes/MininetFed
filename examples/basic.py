@@ -24,22 +24,22 @@ client_args = {"mode": 'random same_samples', 'num_samples': 15000,
 
 
 def topology():
-    net = MininetFed( **experiment_config, controller=[], broker_mode="external",
-                      default_volumes=volumes, topology_file=sys.argv[0])
+    net = MininetFed(**experiment_config, controller=[], broker_mode="internal",
+                     default_volumes=volumes, topology_file=sys.argv[0])
 
     info('*** Adding Nodes...\n')
     s1 = net.addSwitch("s1", failMode='standalone')
 
     srv1 = net.addHost('srv1', cls=Server, script="server/server.py",
                        args=server_args, volumes=volumes,
-                       dimage='mininetfed:server', env="../env")
+                       dimage='mininetfed:server')
 
     clients = []
     for i in range(8):
         clients.append(net.addHost(f'sta{i}', cls=Client, script="client/client.py",
                                    args=client_args, volumes=volumes,
                                    dimage='mininetfed:client',
-                                   env="../env", numeric_id=i))
+                                   numeric_id=i))
 
     info('*** Connecting to the MininetFed Devices...\n')
     net.connectMininetFedDevices()
