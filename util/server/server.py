@@ -144,7 +144,9 @@ def server():
 
     # begin training
     selected_qtd = 0
+    round_times = []  # lista para armazenar o tempo de cada round
     while controller.get_current_round() != nun_rounds:
+        round_start_time = time.time()  # início do round
         controller.update_current_round()
         logger.info(
             f'round: {controller.get_current_round()}', extra=metricType)
@@ -196,6 +198,19 @@ def server():
             f'mean_accuracy: {mean_acc}\n', extra=metricType)
         print(color.GREEN +
               f'mean accuracy on round {controller.get_current_round()} was {mean_acc}\n' + color.RESET)
+
+        # calcular tempo do round e estimar tempo restante
+        round_end_time = time.time()
+        round_duration = round_end_time - round_start_time
+        round_times.append(round_duration)
+        rounds_done = controller.get_current_round()
+        rounds_left = nun_rounds - rounds_done
+        if rounds_done > 0 and rounds_left > 0:
+            avg_time = sum(round_times) / len(round_times)
+            est_remaining = avg_time * rounds_left
+            mins, secs = divmod(int(est_remaining), 60)
+            print(
+                color.BLUE + f"Estimated time remaining until the end of the experiment: {mins}m {secs}s" + color.RESET)
 
         # update stop queue or continue process
         if mean_acc >= stop_acc:
