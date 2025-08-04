@@ -43,11 +43,11 @@ EXPOSE 8883
 # Copy the requirements file into the container
 
 COPY ../util/requirements/container/server.requirements.txt .
-COPY ../util/server /server
 
 # Install the Python dependencies
 RUN pip install --no-cache-dir -r server.requirements.txt 
 
+COPY ../util/server /server
 # Remoção da interface padrão
 # RUN apt install sudo
 # RUN --security=insecure ifconfig eth0 down 

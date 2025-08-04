@@ -39,11 +39,11 @@ EXPOSE 1883
 EXPOSE 8883
 
 COPY ../util/requirements/container/auto_wait.requirements.txt .
-COPY ../util/stop.py .
 
 # Install the Python dependencies
 RUN python3.10 -m pip install --no-cache-dir -r auto_wait.requirements.txt
 
+COPY ../util/stop.py .
 
 # Remoção da interface padrão
 # RUN apt install sudo
