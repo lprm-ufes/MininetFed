@@ -45,7 +45,7 @@ sudo util/install.sh -W
 ### Compiling MininetFed
 
 ```bash
-cd MininetFed
+cd ../MininetFed
 sudo make install
 ```
 
