@@ -42,7 +42,7 @@ cd containernet
 sudo util/install.sh -W
 ```
 
-### Compiling MininetFed
+### Compiling and Installing MininetFed
 
 ```bash
 cd ../MininetFed
