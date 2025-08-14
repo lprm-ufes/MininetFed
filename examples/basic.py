@@ -10,6 +10,8 @@ from federated.node import Server, Client
 volume = "/flw"
 volumes = [f"{Path.cwd()}:" + volume, "/tmp/.X11-unix:/tmp/.X11-unix:rw"]
 
+NUM_TRAINERS = 8
+
 experiment_config = {
     "ipBase": "10.0.0.0/24",
     "experiments_folder": "experiments",
@@ -17,7 +19,7 @@ experiment_config = {
     "date_prefix": False
 }
 
-server_args = {"min_trainers": 8, "num_rounds": 1, "stop_acc": 0.999,
+server_args = {"min_trainers": NUM_TRAINERS, "num_rounds": 1, "stop_acc": 0.999,
                'client_selector': 'All', 'aggregator': "FedAvg"}
 client_args = {"mode": 'random same_samples', 'num_samples': 15000,
                "trainer_class": "TrainerMNIST"}
@@ -35,7 +37,7 @@ def topology():
                        dimage='mininetfed:server', env="../env")
 
     clients = []
-    for i in range(8):
+    for i in range(NUM_TRAINERS):
         clients.append(net.addHost(f'sta{i}', cls=Client, script="client/client.py",
                                    args=client_args, volumes=volumes,
                                    dimage='mininetfed:client',
