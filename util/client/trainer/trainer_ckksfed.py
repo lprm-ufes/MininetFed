@@ -1,5 +1,4 @@
 from sklearn.cluster import AgglomerativeClustering
-import sys
 import random
 from Pyfhel import Pyfhel, PyCtxt
 import numpy as np
@@ -11,7 +10,7 @@ import torch.optim as optim
 import torch.nn as nn
 import torch
 import os
-from .sketch_utils import compress, decompress, get_params, set_params, set_params_fedsketch, differential_garantee_pytorch, delta_weights, get_random_hashfunc
+from .sketch_utils import compress, decompress, get_params, set_params_fedsketch, delta_weights, get_random_hashfunc
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 

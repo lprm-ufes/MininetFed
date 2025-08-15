@@ -10,7 +10,7 @@ DATASET_ANALYSIS = True
 try:
     from client import Trainer
 except Exception as inst:
-    print("Não foi possível importar o Trainer. Gráficos de análise de dataset (datasets_analysis) estão desabilitados")
+    print("Unable to import Trainer. Dataset analysis charts (datasets_analysis) are disabled")
     print(type(inst))
     print(inst.args)
     print(inst)
@@ -18,7 +18,6 @@ except Exception as inst:
 
 
 def analysis(analysis_yaml_path):
-
     # FOLDER = sys.argv[1]
     config = Config(analysis_yaml_path)
 
@@ -135,11 +134,9 @@ def analysis(analysis_yaml_path):
 
 
 if __name__ == '__main__':
-    # total args
     n = len(sys.argv)
 
-    #  check args
-    if (n < 2):
+    if n < 2:
         # print("correct use: sudo python3 analysis.py <experiments_folder> <graphics.yaml>")
         print("alternative: correct use: sudo python3 analysis.py <graphics.yaml> ...")
         exit()

@@ -4,7 +4,6 @@ import torch
 import mmh3
 import random
 import statistics
-import math
 import os
 from scipy.stats import norm,scoreatpercentile
 import itertools
@@ -43,22 +42,12 @@ def get_random_hashfunc(_max=1024, seed=None):
 
 #@profile
 def CountSketchFunction_pytorch(vector,sketch,length,width,index_hash_functions,weight_index=None):
-    #vector_index = range(len(vector))
-    #length_index = range(length)
-    #sign_goal = [(mmh3.hash(str(hash((weight_index,i))),j) % 2) * 2 - 1 for i in vector_index for j in length_index]
-    #increment_goal = [mmh3.hash(str(hash((weight_index,i))),j)%width for i in vector_index for j in length_index]
-    #colision_number = {}
     for j in range(length):
       for i in range(len(vector)):
           sign_hash = mmh3.hash(str(i),j) % 2
           sign_value = sign_hash * 2 - 1
-          #mmh3.hash(str(i),j)%width
-          #if not index_hash(i) in colision_number:
-          #  colision_number[index_hash(i)] = 0
-          #else:
-          #  colision_number[index_hash(i)] += 1
           sketch[j,index_hash_functions[j](i)] += sign_value*vector[i]
-#
+
 def QuerySketchFunction_pytorch(start_index,end_index,sketch,length,width,index_hash_functions):
     new_weights = []
     for i in range(start_index,end_index):
@@ -69,12 +58,11 @@ def QuerySketchFunction_pytorch(start_index,end_index,sketch,length,width,index_
               m.append(sign_value*sketch[j][index_hash_functions[j](i)])
         new_weights.append(statistics.median(m))
     return new_weights
-#@profile
+
 def add_weigths_to_sketch_pytorch(weights,compression=0.7, length = 7,index_hash_functions = None):
   convert = [torch.flatten(v) for k,v in weights.items()]
   convert = list(itertools.chain.from_iterable(convert))
   convert = [v.item() for v in convert]
-  #biggest_number_elements = np.max([value.numel() for key, value in new_weights.items()])
   width = int(len(convert)*compression)
   sketch = np.zeros((length,width))
   CountSketchFunction_pytorch(convert,sketch,length,width,index_hash_functions)
@@ -119,11 +107,7 @@ def epsilon_estimation_pytorch(weights,sketch,percentile):
   if beta < 0:
     beta = 0.0000000001
   episolon = t*np.log(1+(beta*left_side))
-  #numerator = ((std)*(n-2))
-  #denominator = (alpha**2)*k*(k-1)*(1+math.log(n-k))
-  #beta = (2*numerator)/denominator
-#
-  #episolon = t*math.log(1+(beta*numerator)/denominator)
+
   return episolon
 
 
@@ -213,10 +197,10 @@ def CountSketchFunction(vector,sketch,length,width,weight_index=None):
     sign_seed = [random.randint(0,10000) for _ in range(length)]
     for i in range(len(vector)):
      for j in range(length):
-          #sketch[j][hash_family(j+1,i)] =  sketch[j][hash_family(j+1,i)] + sign(hash_family(j+1,i))*vector[i]
           sign_hash = mmh3.hash(str(i),sign_seed[j]) % 2
           sign_value = sign_hash * 2 - 1
           sketch[j][mmh3.hash(str(i),seed[j])%width] =  sketch[j][mmh3.hash(str(i),seed[j])%width] + sign_value*vector[i]
+
 def QuerySketchFunction(weights,length,width,sketch,weight_index=None):
     new_weights = np.zeros(weights.shape)
     random.seed(0)
@@ -230,7 +214,6 @@ def QuerySketchFunction(weights,length,width,sketch,weight_index=None):
               sign_value = sign_hash * 2 - 1
               m.append(sign_value*sketch[j][mmh3.hash(str(hash((weight_index,i))),seed[j])%width])
           else:
-            #m.append(sketch[j][hash_family(j+1,i)])
               sign_hash = mmh3.hash(str(i),sign_seed[j]) % 2
               sign_value = sign_hash * 2 - 1
               m.append(sign_value*sketch[j][mmh3.hash(str(i),seed[j])%width])

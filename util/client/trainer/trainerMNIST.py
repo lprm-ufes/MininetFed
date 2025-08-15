@@ -13,8 +13,6 @@ class TrainerMINIST:
         self.num_id = num_id
         self.mode = mode
         self.model = self.define_model()
-        # split data
-        # select a random number ranging from 10000 < num_samples < 20000
         self.num_samples = int(np.random.choice(np.arange(10000, 20000, 1000)))
         self.x_train, self.y_train, self.x_test, self.y_test = self.split_data()
         self.stop_flag = False
@@ -83,9 +81,3 @@ class TrainerMINIST:
 
     def get_stop_flag(self):
         return self.stop_flag
-
-# if __name__ == '__main__':
-#     trainer = Trainer()
-#     for l in trainer.model.layers:
-#         print(l.name)
-#         print(l.get_weights())

@@ -9,18 +9,14 @@ import pickle
 from .trainer_utils import read_energy
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-
 DATASET_PATH = 'flw/data/cifar-10-batches-py'
 
 
 class TrainerCifar:
     def __init__(self, id, mode) -> None:
-        # id and model
         self.id = id
         self.mode = mode  # 'class' 'random' 'all'
         self.model = self.define_model()
-        # split data
-        # select a random number ranging from 10000 < num_samples < 20000
         self.num_samples = int(np.random.choice(np.arange(10000, 20000, 1000)))
         self.x_train, self.y_train, self.x_test, self.y_test = self.split_data()
         self.stop_flag = False
@@ -177,7 +173,6 @@ class TrainerCifar:
 
 if __name__ == '__main__':
     trainer = TrainerCifar(0, 'random')
-    # x_train, y_train, x_test, y_test = trainer.load_data()
     print(trainer.x_train.shape, trainer.y_train.shape,
           trainer.x_test.shape, trainer.y_test.shape)
     acc = 0.0
@@ -185,20 +180,3 @@ if __name__ == '__main__':
         trainer.train_model()
         acc = trainer.eval_model()
         print(acc)
-
-    # y_predict = trainer.model.predict(trainer.x_test)
-
-    # # Convertendo os arrays numpy para DataFrames
-    # x_train_df = pd.DataFrame(trainer.x_train)
-    # y_train_df = pd.DataFrame(trainer.y_train)
-    # x_test_df = pd.DataFrame(trainer.x_test)
-    # y_test_df = pd.DataFrame(trainer.y_test)
-    # y_predict_df = pd.DataFrame(y_predict)
-
-    # # Salvando os DataFrames como arquivos CSV
-
-    # x_train_df.to_csv('x_train.csv', index=False)
-    # y_train_df.to_csv('y_train.csv', index=False)
-    # x_test_df.to_csv('x_test.csv', index=False)
-    # y_test_df.to_csv('y_test.csv', index=False)
-    # y_predict_df.to_csv('y_predict.csv', index=False)

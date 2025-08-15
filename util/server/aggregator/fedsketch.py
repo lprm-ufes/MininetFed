@@ -16,15 +16,6 @@ class FedSketchAgg:
         
         num_clients = len(all_trainer_samples)
         print(num_clients)
-        # Calculate the total number of examples used during training
-        #num_examples_total = 0
-        #for i in results:
-        #    num_examples_total += i[1]
-
-        # Create a list of weights, each multiplied by the related number of examples
-        #weighted_weights = [
-        #    [layer * num_examples for layer in weights] for weights, num_examples in results
-        #]
 
         # Compute average weights of each layer
         weights_prime = [

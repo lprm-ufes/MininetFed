@@ -3,7 +3,7 @@ import sys
 import time
 
 n = len(sys.argv)
-if (n != 2):
+if n != 2:
     print("Correct use: python stop.py <broker_address>")
     sys.exit(1)
 
@@ -25,7 +25,6 @@ BROKER_ADDR = sys.argv[1]
 def on_connect(client, userdata, flags, rc):
     client.subscribe('minifed/stopQueue')
     client.subscribe('minifed/autoWaitContinue')
-    # print(Color.YELLOW + "Subscribed to topics." + Color.RESET)
 
 
 def on_message_stop(client, userdata, message):

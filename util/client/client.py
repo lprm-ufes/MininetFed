@@ -10,15 +10,14 @@ try:
 except:
     pass
 
-def criar_objeto(pacote, nome_classe, **atributos):
+def create_object(package, class_name, **atributos):
     try:
-        modulo = importlib.import_module(f"{pacote}")
-        classe = getattr(modulo, nome_classe)  # Obtém a classe do módulo
-        return classe(**atributos)  # Instancia a classe
+        module = importlib.import_module(f"{package}")
+        class_ = getattr(module, class_name)
+        return class_(**atributos)
     except (ModuleNotFoundError, AttributeError) as e:
-        print(f"Erro: {e}", file=sys.stderr)
+        print(f"Error: {e}", file=sys.stderr)
         return None
-
 
 n = len(sys.argv)
 
@@ -79,8 +78,6 @@ class color:
 
 
 # subscribe to queues on connection
-
-
 def on_connect(client, userdata, flags, rc):
     subscribe_queues = ['minifed/selectionQueue',
                         'minifed/posAggQueue', 'minifed/stopQueue', 'minifed/serverArgs']
@@ -89,7 +86,6 @@ def on_connect(client, userdata, flags, rc):
 
 
 # callback for serverArgs: update the args with new information send by the server, between the round 0 and the round 1.
-
 def on_server_args(client, userdata, message):
     msg = json.loads(message.payload.decode("utf-8"))
     if msg['id'] == CLIENT_NAME:
@@ -103,10 +99,7 @@ def on_server_args(client, userdata, message):
 callback for selectionQueue: the selection queue is sent by the server; 
 the client checks if it's selected for the current round or not. If yes, 
 the client trains and send the training results back.
-
 """
-
-
 def on_message_selection(client, userdata, message):
     global selected
     msg = json.loads(message.payload.decode("utf-8"))
@@ -132,8 +125,6 @@ def on_message_selection(client, userdata, message):
             print(f'trainer was not selected for training this round')
 
 # callback for posAggQueue: gets aggregated weights and publish validation results on the metricsQueue
-
-
 def on_message_agg(client, userdata, message):
     global selected
     print(f'received aggregated weights!')
@@ -154,8 +145,6 @@ def on_message_agg(client, userdata, message):
     client.publish('minifed/metricsQueue', response)
 
 # callback for stopQueue: if conditions are met, stop training and exit process
-
-
 def on_message_stop(client, userdata, message):
     print(color.RED + f'received message to stop!')
     trainer.set_stop_true()
@@ -166,7 +155,7 @@ def on_message_stop(client, userdata, message):
 #     # # try:
 #     # if CLIENT_INSTANTIATION_ARGS is not None:
 
-#     return criar_objeto("trainer", trainer_class, id=CLIENT_ID, name=CLIENT_NAME, args=CLIENT_INSTANTIATION_ARGS)
+#     return create_object("trainer", trainer_class, id=CLIENT_ID, name=CLIENT_NAME, args=CLIENT_INSTANTIATION_ARGS)
 #     # else:
 #     #     return Trainer(CLIENT_ID, CLIENT_NAME, {})
 
@@ -177,8 +166,8 @@ def on_message_stop(client, userdata, message):
 
 # connect on queue and send register
 
-trainer = criar_objeto("trainer", trainer_class, id=CLIENT_ID,
-                       name=CLIENT_NAME, args=CLIENT_INSTANTIATION_ARGS)
+trainer = create_object("trainer", trainer_class, id=CLIENT_ID,
+                        name=CLIENT_NAME, args=CLIENT_INSTANTIATION_ARGS)
 client = mqtt.Client(str(CLIENT_NAME))
 client.connect(BROKER_ADDR, keepalive=0)
 client.on_connect = on_connect
