@@ -28,8 +28,6 @@ class Controller:
         self.trainer_samples = []  # save num_samples scale for agg
         self.acc_list = []
         self.mean_acc_per_round = []
-
-        #self.clientSelection = create_object("clientSelection", client_selector)
         self.clientSelection = getattr(clientSelection, client_selector)()
         self.aggregator = create_object("aggregator", aggregator)
         self.metrics = {}
@@ -52,7 +50,6 @@ class Controller:
         self.mean_acc_per_round.append(mean)  # save mean acc
         return mean
 
-    # "setters"
     def update_metrics(self, trainer_id, metrics):
         self.metrics[trainer_id] = metrics
 
@@ -76,8 +73,6 @@ class Controller:
 
     def add_accuracy(self, acc):
         self.acc_list.append(acc)
-
-    # operations
 
     def select_trainers_for_round(self):
         return self.clientSelection.select_trainers_for_round(self.trainer_list, self.metrics)

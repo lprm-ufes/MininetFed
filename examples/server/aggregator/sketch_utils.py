@@ -15,7 +15,6 @@ def set_params(model, data, learning_rate):
     if param.requires_grad:
         param.data = param.data + (data[name]*learning_rate)
 
-
 def set_params_fedsketch(model, data):
   for name, param in model.named_parameters():
         param.data = data[name]
@@ -28,7 +27,6 @@ def get_params(model):
   return param_dict
 
 def delta_weights(new_weights,old_weights):
-
   delta = { k: v - old_weights[k] for k, v in new_weights.items() if k in old_weights }
   return delta
 
@@ -41,7 +39,6 @@ def get_random_hashfunc(_max=1024, seed=None):
         return int.from_bytes(func.digest(), 'big') % _max
     return hashfunc
 
-#@profile
 def CountSketchFunction_pytorch(vector,sketch,length,width,index_hash_functions,weight_index=None):
     for j in range(length):
       for i in range(len(vector)):
@@ -111,7 +108,6 @@ def epsilon_estimation_pytorch(weights,sketch,percentile):
 
   return episolon
 
-
 def differential_garantee_pytorch(weights,sketch,desired_episilon,percentile):
   episilon = epsilon_estimation_pytorch(weights,sketch,percentile)
 
@@ -153,8 +149,6 @@ def compress(new_weights,compression, length, desired_episilon, percentile,index
   sketch = add_weigths_to_sketch_pytorch(new_weights,compression,length,index_hash_functions)
   return sketch
 
-
-
 def decompress(n_weights,sketch, length, min, max,index_hash_functions):
   n_weights = query_weigths_sketch_pytorch(n_weights,length,sketch,index_hash_functions)
   return n_weights
@@ -190,7 +184,6 @@ def differential_garantee(weights,sketch,desired_episilon,percentile):
   if episilon > desired_episilon:
     noise = np.random.laplace(0, 1.0/episilon, 1)
     sketch += noise
-
 
 def CountSketchFunction(vector,sketch,length,width,weight_index=None):
     random.seed(0)

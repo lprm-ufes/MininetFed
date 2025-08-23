@@ -49,14 +49,12 @@ def salvar_matriz_binaria(matriz, nome_arquivo):
                 f.write(bytes_pyctxt)
         f.close()
 
-
 def cka_unecrypted(X, Y, XTX, YTY):
   # Implements linear CKA as in Kornblith et al. (2019)
     X = X.copy()
     Y = Y.copy()
     YTX = Y.T.dot(X)
     return (YTX ** 2).sum() * XTX * YTY
-
 
 def cka_encrypted(X, Y, XTX, YTY, HE):
     X = X.copy()
@@ -79,10 +77,8 @@ def cka_encrypted(X, Y, XTX, YTY, HE):
     HE.relinearize(result)
     return result
 
-
 def decode_value(HE, value):
     return PyCtxt(pyfhel=HE, bytestring=value.encode('cp437'))
-
 
 def decode_array(HE, encrypted_array):
     out = []
@@ -91,7 +87,6 @@ def decode_array(HE, encrypted_array):
         c_res = PyCtxt(pyfhel=HE, bytestring=b)
         out.append(c_res)
     return out
-
 
 def encrypt_array(HE_f, array):
     CASE_SELECTOR = 1          # 1 or 2
@@ -104,10 +99,8 @@ def encrypt_array(HE_f, array):
 
     return [HE_f.encrypt(array[j:j+HE_f.get_nSlots()]) for j in range(0, l, HE_f.get_nSlots())]
 
-
 def encrypt_value(HE_f, value):
     return HE_f.encrypt(value)
-
 
 def cka(X, Y, XTX, YTY, HE=None, crypt=False):
     if crypt:

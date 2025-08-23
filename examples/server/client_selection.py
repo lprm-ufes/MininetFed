@@ -1,7 +1,7 @@
 import random
 
 
-# Device I Choose You (DEEV): Selects k clients with accuracy below the average,
+# (DEEV): Selects k clients with accuracy below the average,
 # where k decreases by a decay factor at each round
 class Deev:
     def __init__(self):

@@ -9,29 +9,24 @@ from federated.net import MininetFed
 from federated.node import Server, Client
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
-
 volume = "/flw"
 volumes = [f"{Path.cwd()}:" + volume, "/tmp/.X11-unix:/tmp/.X11-unix:rw",
            "{}/client:/client".format(current_dir), "{}/server:/server".format(current_dir)]
-
 experiment_config = {
     "ipBase": "10.0.0.0/24",
     "experiments_folder": "experiments",
     "experiment_name": "limitations",
     "date_prefix": False
 }
-
 # See server/client_selection.py for the available client_selector models
 server_args = {"min_trainers": 8, "num_rounds": 1, "stop_acc": 0.999,
                'client_selector': 'All', 'aggregator': "FedAvg"}
 client_args = {"mode": 'random same_samples', 'num_samples': 15000,
                "trainer_class": "TrainerMNIST"}
-
 bw = [10, 10, 1, 10, 10, 1, None, 1]
 delay = ["10ms", "10ms", "10ms", "10ms", "10ms", "10ms", None, "1ms"]
 loss = [None, None, None, None, None, None, None, None]
 cpu_shares = [512, 256, 1024, 1024, 1024, 1024, 1024, 1024]
-
 client_mem_lim = ["512m", "512m", "512m", "512m",
                   "512m", "512m", "512m", "512m"]
 
@@ -42,11 +37,9 @@ def topology():
 
     info('*** Adding Nodes...\n')
     s1 = net.addSwitch("s1", failMode='standalone')
-
     srv1 = net.addHost('srv1', cls=Server, script="server/server.py",
                        args=server_args, volumes=volumes,
                        dimage='mininetfed:server')
-
     clients = []
     for i in range(8):
         clients.append(net.addHost(f'sta{i}', cls=Client, script="client/client.py",
@@ -61,9 +54,7 @@ def topology():
     info('*** Creating links...\n')
     net.addLink(srv1, s1)
     for i, client in enumerate(clients):
-        print(bw[i])
-        net.addLink(client, s1, cls=TCLink,
-                    bw=bw[i], loss=loss[i], delay=delay[i])
+        net.addLink(client, s1, cls=TCLink, bw=bw[i], loss=loss[i], delay=delay[i])
 
     info('*** Starting network...\n')
     net.build()
@@ -77,7 +68,6 @@ def topology():
              experiment_controller=net.experiment_controller)
 
     sleep(3)
-    print(net.broker_addr)
     for client in clients:
         client.run(broker_addr=net.broker_addr,
                    experiment_controller=net.experiment_controller)

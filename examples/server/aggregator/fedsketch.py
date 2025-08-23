@@ -15,7 +15,6 @@ class FedSketchAgg:
             all_weights.append(client_training_response[client_id]["weights"])
         
         num_clients = len(all_trainer_samples)
-        print(num_clients)
 
         # Compute average weights of each layer
         weights_prime = [

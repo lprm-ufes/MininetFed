@@ -48,7 +48,6 @@ def server():
     nun_rounds = server_args["num_rounds"]
     stop_acc = server_args["stop_acc"]
     client_args = server_args.get("client")
-
     logging.basicConfig(level=logging.INFO, filename=log_file,
                         format=FORMAT, filemode="w")
     metricType = {"infotype": "METRIC"}
@@ -187,8 +186,7 @@ def server():
             time.sleep(1)
         controller.reset_num_responses()  # reset num_responses for next round
         mean_acc = controller.get_mean_acc()
-        logger.info(
-            f'mean_accuracy: {mean_acc}\n', extra=metricType)
+        logger.info(f'mean_accuracy: {mean_acc}\n', extra=metricType)
         print(color.GREEN +
               f'mean accuracy on round {controller.get_current_round()} was {mean_acc}\n' + color.RESET)
 
