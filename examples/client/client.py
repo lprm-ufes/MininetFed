@@ -10,11 +10,11 @@ try:
 except:
     pass
 
-def create_object(package, class_name, **atributos):
+def create_object(package, class_name, **atributtes):
     try:
         module = importlib.import_module(f"{package}")
         class_ = getattr(module, class_name)
-        return class_(**atributos)
+        return class_(**atributtes)
     except (ModuleNotFoundError, AttributeError) as e:
         print(f"Error: {e}", file=sys.stderr)
         return None
@@ -104,7 +104,7 @@ def on_message_selection(client, userdata, message):
     global selected
     msg = json.loads(message.payload.decode("utf-8"))
     if msg['id'] == CLIENT_NAME:
-        if bool(msg['selected']) == True:
+        if bool(msg['selected']):
             selected = True
             print(color.BOLD_START + 'new round starting' + color.BOLD_END)
             print(
@@ -149,22 +149,6 @@ def on_message_stop(client, userdata, message):
     print(color.RED + f'received message to stop!')
     trainer.set_stop_true()
     exit()
-
-
-# def get_trainer():
-#     # # try:
-#     # if CLIENT_INSTANTIATION_ARGS is not None:
-
-#     return create_object("trainer", trainer_class, id=CLIENT_ID, name=CLIENT_NAME, args=CLIENT_INSTANTIATION_ARGS)
-#     # else:
-#     #     return Trainer(CLIENT_ID, CLIENT_NAME, {})
-
-#     # # old trainer standard
-#     # except:
-#     #     return Trainer(CLIENT_ID, MODE)
-
-
-# connect on queue and send register
 
 trainer = create_object("trainer", trainer_class, id=CLIENT_ID,
                         name=CLIENT_NAME, args=CLIENT_INSTANTIATION_ARGS)

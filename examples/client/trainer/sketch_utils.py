@@ -1,13 +1,15 @@
+import os
 import numpy as np
 import pandas as pd
 import torch
 import mmh3
 import random
 import statistics
-import os
-from scipy.stats import norm,scoreatpercentile
 import itertools
 import hashlib
+
+from scipy.stats import norm,scoreatpercentile
+
 
 def set_params(model, data, learning_rate):
   for name, param in model.named_parameters():
@@ -63,6 +65,7 @@ def add_weigths_to_sketch_pytorch(weights,compression=0.7, length = 7,index_hash
   convert = [torch.flatten(v) for k,v in weights.items()]
   convert = list(itertools.chain.from_iterable(convert))
   convert = [v.item() for v in convert]
+  #biggest_number_elements = np.max([value.numel() for key, value in new_weights.items()])
   width = int(len(convert)*compression)
   sketch = np.zeros((length,width))
   CountSketchFunction_pytorch(convert,sketch,length,width,index_hash_functions)
@@ -107,7 +110,6 @@ def epsilon_estimation_pytorch(weights,sketch,percentile):
   if beta < 0:
     beta = 0.0000000001
   episolon = t*np.log(1+(beta*left_side))
-
   return episolon
 
 
@@ -190,13 +192,13 @@ def differential_garantee(weights,sketch,desired_episilon,percentile):
     noise = np.random.laplace(0, 1.0/episilon, 1)
     sketch += noise
 
-
 def CountSketchFunction(vector,sketch,length,width,weight_index=None):
     random.seed(0)
     seed = [random.randint(0,10000) for _ in range(length)]
     sign_seed = [random.randint(0,10000) for _ in range(length)]
     for i in range(len(vector)):
      for j in range(length):
+          #sketch[j][hash_family(j+1,i)] =  sketch[j][hash_family(j+1,i)] + sign(hash_family(j+1,i))*vector[i]
           sign_hash = mmh3.hash(str(i),sign_seed[j]) % 2
           sign_value = sign_hash * 2 - 1
           sketch[j][mmh3.hash(str(i),seed[j])%width] =  sketch[j][mmh3.hash(str(i),seed[j])%width] + sign_value*vector[i]

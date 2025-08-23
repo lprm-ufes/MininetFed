@@ -1,14 +1,15 @@
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
+import pandas as pd
+import numpy as np
 import tensorflow as tf
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Flatten
 from tensorflow.keras.layers import Conv2D, MaxPooling2D
 import tensorflow.keras.optimizers as optimizers
 
-import pandas as pd
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-import numpy as np
 
 class TrainerCifar:
     def __init__(self, id, mode) -> None:

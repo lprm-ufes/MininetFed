@@ -19,17 +19,13 @@ class File:
     def __init__(self, name):
         self.clients = {}
         self.name = name
-        # columns=['round', 'deltaT', 'mean_accuracy']
         self.data = pd.DataFrame()
         self.net = pd.DataFrame()
 
         with open(self.name + '.log', 'r') as file:
             self.content = file.readlines()
 
-        # with open(self.name + '.net', 'r') as file:
-        #     self.network = file.readlines()
         self.processContent()
-        # self.processNetworkContent()
 
     def processNetworkContent(self):
         self.n_net_saves = 0

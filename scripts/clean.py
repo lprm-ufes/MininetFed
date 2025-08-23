@@ -9,7 +9,7 @@ def main():
 
     # Verifica se o script existe antes de executá-lo
     if not os.path.exists(script_path):
-        print(f"Erro: Script {script_path} não encontrado.")
+        print(f"Erro: Script {script_path} not found.")
         return
 
     subprocess.run(["bash", script_path], check=True)

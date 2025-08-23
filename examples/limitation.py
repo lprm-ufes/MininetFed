@@ -1,15 +1,18 @@
+import os
 import sys
+
 from pathlib import Path
 from time import sleep
-
 from mininet.log import info, setLogLevel
-
 from containernet.link import TCLink
 from federated.net import MininetFed
 from federated.node import Server, Client
 
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
 volume = "/flw"
-volumes = [f"{Path.cwd()}:" + volume, "/tmp/.X11-unix:/tmp/.X11-unix:rw"]
+volumes = [f"{Path.cwd()}:" + volume, "/tmp/.X11-unix:/tmp/.X11-unix:rw",
+           "{}/client:/client".format(current_dir), "{}/server:/server".format(current_dir)]
 
 experiment_config = {
     "ipBase": "10.0.0.0/24",
@@ -18,6 +21,7 @@ experiment_config = {
     "date_prefix": False
 }
 
+# See server/client_selection.py for the available client_selector models
 server_args = {"min_trainers": 8, "num_rounds": 1, "stop_acc": 0.999,
                'client_selector': 'All', 'aggregator': "FedAvg"}
 client_args = {"mode": 'random same_samples', 'num_samples': 15000,
@@ -28,8 +32,8 @@ delay = ["10ms", "10ms", "10ms", "10ms", "10ms", "10ms", None, "1ms"]
 loss = [None, None, None, None, None, None, None, None]
 cpu_shares = [512, 256, 1024, 1024, 1024, 1024, 1024, 1024]
 
-client_mem_lim = ["512m", "512m", "512m", "512m", "512m",
-                  "512m", "512m", "512m"]
+client_mem_lim = ["512m", "512m", "512m", "512m",
+                  "512m", "512m", "512m", "512m"]
 
 
 def topology():
@@ -73,12 +77,13 @@ def topology():
              experiment_controller=net.experiment_controller)
 
     sleep(3)
+    print(net.broker_addr)
     for client in clients:
         client.run(broker_addr=net.broker_addr,
                    experiment_controller=net.experiment_controller)
 
     info('*** Running Autostop...\n')
-    net.wait_experiment(start_cli=False)
+    net.wait_experiment(start_cli=True)
 
     info('*** Stopping network...\n')
     net.stop()

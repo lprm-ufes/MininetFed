@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 class DatasetAnalysisGraphics:
   def __init__(self, trainers, mode) -> None:
     self.trainers = trainers
@@ -21,7 +22,6 @@ class DatasetAnalysisGraphics:
         plt.ylabel('Number of Cases', fontsize=18)
         plt.title(f'Number of cases per Class in Training Data (client {id})', fontsize=16)
         plt.tick_params(labelsize=16)
-
         plt.show()
 
         # Contando a ocorrência de cada classe em y_test
@@ -37,7 +37,6 @@ class DatasetAnalysisGraphics:
         plt.ylabel('Number of Cases', fontsize=18)
         plt.title(f'Quantity of Items of a Given Class in the Test Data (client {id})', fontsize=16)
         plt.tick_params(labelsize=16)
-
         plt.show()
 
   def class_distribution_all(self, y_labels=None):

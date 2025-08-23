@@ -1,14 +1,17 @@
+import os
 import sys
+
 from pathlib import Path
 from time import sleep
-
 from mininet.log import info, setLogLevel
-
 from federated.net import MininetFed
 from federated.node import Server, Client
 
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
 volume = "/flw"
-volumes = [f"{Path.cwd()}:" + volume, "/tmp/.X11-unix:/tmp/.X11-unix:rw"]
+volumes = [f"{Path.cwd()}:" + volume, "/tmp/.X11-unix:/tmp/.X11-unix:rw",
+           "{}/client:/client".format(current_dir), "{}/server:/server".format(current_dir)]
 
 experiment_config = {
     "ipBase": "10.0.0.0/24",
@@ -17,6 +20,7 @@ experiment_config = {
     "date_prefix": False
 }
 
+# See server/client_selection.py for the available client_selector models
 server_args = {"min_trainers": 8, "num_rounds": 1, "stop_acc": 0.999,
                'client_selector': 'All', 'aggregator': "FedAvg"}
 client_args = {"mode": 'random same_samples', 'num_samples': 15000,

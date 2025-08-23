@@ -7,8 +7,9 @@ from analysis.generate_graphics import Graphics
 from analysis.dataset_analysis_graphics import DatasetAnalysisGraphics
 
 DATASET_ANALYSIS = True
+
 try:
-    from client import Trainer
+    from examples.client import Trainer
 except Exception as inst:
     print("Unable to import Trainer. Dataset analysis charts (datasets_analysis) are disabled")
     print(type(inst))
@@ -18,12 +19,11 @@ except Exception as inst:
 
 
 def analysis(analysis_yaml_path):
-    # FOLDER = sys.argv[1]
     config = Config(analysis_yaml_path)
-
     experiments_analysis = config.get("experiments_analysis")
     FOLDER = config.get("experiments_folder")
-    if experiments_analysis != None:
+
+    if experiments_analysis is not None:
 
         csv = experiments_analysis.get("save_csv")
         dfs = []

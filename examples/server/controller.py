@@ -1,25 +1,26 @@
 import numpy as np
 import pandas as pd
-from clientSelection import *
+from client_selection import *
 from aggregator import *
 import importlib
+import client_selection as clientSelection
 
 
-def criar_objeto(pacote, nome_classe):
+def create_object(pacote, nome_classe):
     try:
         modulo = importlib.import_module(f"{pacote}")
-        classe = getattr(modulo, nome_classe)  # Obtém a classe do módulo
-        return classe()  # Instancia a classe
+        classe = getattr(modulo, nome_classe)
+        return classe()
     except (ModuleNotFoundError, AttributeError) as e:
         print(f"Erro: {e}")
         return None
 
 
 class Controller:
-    def __init__(self, min_trainers=2, num_rounds=5, client_selector='Random', aggregator="FedAvg"):
+    def __init__(self, min_trainers=2, num_rounds=5, client_selector='Random',
+                 aggregator="FedAvg"):
         self.trainer_list = []
         self.min_trainers = min_trainers
-        # self.trainers_per_round = trainers_per_round
         self.current_round = 0
         self.num_rounds = num_rounds  # total number of rounds
         self.num_responses = 0  # number of responses received on aggWeights and metrics
@@ -27,9 +28,10 @@ class Controller:
         self.trainer_samples = []  # save num_samples scale for agg
         self.acc_list = []
         self.mean_acc_per_round = []
-        # client_selectors[client_selector]()
-        self.clientSelection = criar_objeto("clientSelection", client_selector)
-        self.aggregator = criar_objeto("aggregator", aggregator)
+
+        #self.clientSelection = create_object("clientSelection", client_selector)
+        self.clientSelection = getattr(clientSelection, client_selector)()
+        self.aggregator = create_object("aggregator", aggregator)
         self.metrics = {}
 
     # getters

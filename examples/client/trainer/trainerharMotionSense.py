@@ -1,11 +1,14 @@
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-import tensorflow as tf 
+import tensorflow as tf
+import numpy as np
+import pandas as pd
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Flatten
 from tensorflow.keras.optimizers import SGD
-import numpy as np
-import pandas as pd
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
 
 class TrainerHarMotionSense:
         

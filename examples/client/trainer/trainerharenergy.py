@@ -1,14 +1,16 @@
+import os
+import pandas as pd
+import numpy as np
+import tensorflow as tf
+
 from .trainer_utils import read_energy
 from imblearn.over_sampling import RandomOverSampler
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
-import pandas as pd
-import numpy as np
 from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.layers import Dense, Flatten
 from tensorflow.keras.models import Sequential
-import tensorflow as tf
-import os
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 

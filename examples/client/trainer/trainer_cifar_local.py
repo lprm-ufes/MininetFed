@@ -1,11 +1,11 @@
+import os
 import numpy as np
 import pandas as pd
-from tensorflow.keras.optimizers import SGD
-from tensorflow.keras import layers, models
 import tensorflow as tf
-import os
 import pickle
 
+from tensorflow.keras.optimizers import SGD
+from tensorflow.keras import layers, models
 from .trainer_utils import read_energy
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'

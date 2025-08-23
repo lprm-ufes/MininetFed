@@ -1,22 +1,24 @@
-from .sketch_utils import (compress, decompress, get_params, set_params_fedsketch,
-                           delta_weights, get_random_hashfunc)
-from sklearn.metrics import accuracy_score
+import os
 import pandas as pd
 import numpy as np
 import sklearn
+import torch
+import torchvision
+
+from .sketch_utils import (compress, decompress, get_params, set_params_fedsketch,
+                           delta_weights, get_random_hashfunc)
+from sklearn.metrics import accuracy_score
 from tsai.inference import load_learner
 from tsai.all import *
 from tsai.basics import *
 from torchvision.datasets.mnist import MNIST
 from torchvision.transforms import ToTensor
 from torchvision import datasets, transforms
-import torchvision
 from torch.utils.data import DataLoader
 from torch.nn import CrossEntropyLoss
 from torch.optim import Adam
 from torch import nn, optim
-import torch
-import os
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 

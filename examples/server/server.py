@@ -40,7 +40,6 @@ def server():
         exit()
 
     server_args = json.loads(sys.argv[3])
-
     broker_addr = sys.argv[1]
     log_file = sys.argv[2]
     min_trainers = server_args["min_trainers"]
@@ -68,8 +67,8 @@ def server():
 
     # subscribe to queues on connection
     def on_connect(client, userdata, flags, rc):
-        subscribe_queues = ['minifed/registerQueue',
-                            'minifed/preAggQueue', 'minifed/metricsQueue', 'minifed/ready']
+        subscribe_queues = ['minifed/registerQueue', 'minifed/preAggQueue',
+                            'minifed/metricsQueue', 'minifed/ready']
         for s in subscribe_queues:
             client.subscribe(s)
 
@@ -108,9 +107,6 @@ def server():
             f'received weights from trainer {m["id"]}!', extra=executionType)
         print(f'received weights from trainer {m["id"]}!')
 
-    # def create_string_from_json(data):
-    #     return " - ".join(f"{name}: {value}" for name, value in data.items())
-
     # callback for metricsQueue: get the metrics from each client after it finish its round
     def on_message_metrics(client, userdata, message):
         m = json.loads(message.payload.decode("utf-8"))
@@ -143,7 +139,6 @@ def server():
         time.sleep(1)
 
     # begin training
-    selected_qtd = 0
     while controller.get_current_round() != nun_rounds:
         controller.update_current_round()
         logger.info(

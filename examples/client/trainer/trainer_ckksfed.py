@@ -1,16 +1,18 @@
-from sklearn.cluster import AgglomerativeClustering
+import os
 import random
-from Pyfhel import Pyfhel, PyCtxt
 import numpy as np
-from sklearn.model_selection import KFold
-import torchvision.transforms as transforms
-from torch.utils.data import ConcatDataset
-from torchvision.datasets import MNIST
 import torch.optim as optim
 import torch.nn as nn
 import torch
-import os
+import torchvision.transforms as transforms
+
+from sklearn.cluster import AgglomerativeClustering
+from Pyfhel import Pyfhel, PyCtxt
+from sklearn.model_selection import KFold
+from torch.utils.data import ConcatDataset
+from torchvision.datasets import MNIST
 from .sketch_utils import compress, decompress, get_params, set_params_fedsketch, delta_weights, get_random_hashfunc
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 

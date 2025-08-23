@@ -53,6 +53,7 @@ class AutoStop (Docker):
         except:
             print(color.BLUE+"\nKeyboard interrupt: manual continue"+color.RESET)
 
+
 class AutoStop6 (DockerSensor):
     """Node that represents a docker container of a MininerFed client.
     """
@@ -74,6 +75,7 @@ class AutoStop6 (DockerSensor):
             self.cmd(f'bash -c "python3 stop.py {broker_addr}"', verbose=verbose)
         except:
             print(color.BLUE+"\nKeyboard interrupt: manual continue"+color.RESET)
+
 
 class Broker (Docker):
     """Node that represents a docker container of a Mosquitto Broker.
@@ -112,6 +114,7 @@ class Broker (Docker):
         Docker.terminate(self)
         if self.mode == "external":
             self.ext.stop_ext_brk()
+
 
 class Client (Docker):
     """Node that represents a docker container of a MininerFed client.
@@ -157,10 +160,9 @@ class Client (Docker):
 
         makeTerm(self, cmd=cmd)
 
-class ClientSensor (DockerSensor):
-    """Node that represents a docker container of a MininerFed client.
-    """
 
+class ClientSensor (DockerSensor):
+    """Node that represents a docker container of a MininerFed client."""
     def __init__(self, name, script, numeric_id, args=None, dimage=None,
                  cpu_quota=None, volumes=None, mem_limit=None, **kwargs):
         self.experiment = None
@@ -199,6 +201,7 @@ class ClientSensor (DockerSensor):
         print(f"cmd:{cmd}")
         makeTerm(self, cmd=cmd)
 
+
 class Monitor (Docker):
     """Node that represents a docker container of a custom network monitor.
     """
@@ -220,10 +223,9 @@ class Monitor (Docker):
         command = f"bash -c 'python3 {self.script} {self.broker_addr} {self.experiment.getFileName(extension='''''')}.net'"
         makeTerm(self, cmd=command)
 
-class Server (Docker):
-    """Node that represents a docker container of a MininerFed server.
-    """
 
+class Server (Docker):
+    """Node that represents a docker container of a MininerFed server."""
     def __init__(self, name, script, args=None, dimage=None, cpu_quota=None,
                  volumes=None, mem_limit=None, **kwargs):
         self.broker_addr = None
@@ -261,10 +263,9 @@ class Server (Docker):
 
         makeTerm(self, cmd=cmd)
 
-class ServerSensor (DockerSensor):
-    """Node that represents a docker container of a MininerFed server.
-    """
 
+class ServerSensor (DockerSensor):
+    """Node that represents a docker container of a MininerFed server."""
     def __init__(self, name, script, args=None, dimage=None, cpu_quota=None,
                  volumes=None, mem_limit=None, **kwargs):
         self.broker_addr = None

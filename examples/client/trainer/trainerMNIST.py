@@ -1,14 +1,16 @@
-from tensorflow.keras.layers import Conv2D, MaxPool2D, Flatten, Dense
+import os
 import numpy as np
+import tensorflow as tf
+
+from tensorflow.keras.layers import Conv2D, MaxPool2D, Flatten, Dense
 from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.models import Sequential
-import tensorflow as tf
-import os
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 
 class TrainerMINIST:
-    def __init__(self,num_id, mode) -> None:
+    def __init__(self, num_id, mode) -> None:
         # id and model
         self.num_id = num_id
         self.mode = mode
