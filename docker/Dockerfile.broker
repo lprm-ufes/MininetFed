@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.9.0-labs
-FROM ubuntu:focal
+FROM ubuntu:noble
 
 # VOLUME /flw
 
