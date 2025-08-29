@@ -46,7 +46,7 @@ class AutoStop (Docker):
         # Docker.start(self)
         self.cmd("route add default gw %s" % broker_addr)
 
-    def auto_stop(self, verbose=True):
+    def auto_stop(self, verbose=False):
         try:
             self.cmd(
                 f'bash -c "python3 stop.py {self.broker_addr}"', verbose=verbose)
@@ -68,7 +68,7 @@ class AutoStop6 (DockerSensor):
 
         self.cmd("ifconfig eth0 down")
 
-    def auto_stop(self, broker_addr, verbose=True):
+    def auto_stop(self, broker_addr, verbose=False):
         self.cmd("route add -A inet6 default gw  %s" %
                  broker_addr)
         try:
@@ -198,7 +198,7 @@ class ClientSensor (DockerSensor):
 
         self.cmd("route add -A inet6 default gw  %s" %
                  self.broker_addr)
-        print(f"cmd:{cmd}")
+        #print(f"cmd:{cmd}")
         makeTerm(self, cmd=cmd)
 
 
@@ -298,7 +298,7 @@ class ServerSensor (DockerSensor):
 
         makeTerm(self, cmd=cmd)
 
-    def auto_stop(self, verbose=True):
+    def auto_stop(self, verbose=False):
         try:
             self.cmd(
                 f'bash -c "cd {VOLUME_FOLDER} && python3 stop.py {self.broker_addr}"', verbose=verbose)

@@ -10,6 +10,8 @@ try:
 except:
     pass
 
+n_round = {}
+
 def create_object(package, class_name, **atributtes):
     try:
         module = importlib.import_module(f"{package}")
@@ -102,11 +104,16 @@ the client trains and send the training results back.
 """
 def on_message_selection(client, userdata, message):
     global selected
+    global n_round
     msg = json.loads(message.payload.decode("utf-8"))
     if msg['id'] == CLIENT_NAME:
+        client_id = msg['id']
+        if client_id not in n_round:
+            n_round[client_id] = 0
+        n_round[client_id] += 1
         if bool(msg['selected']):
             selected = True
-            print(color.BOLD_START + 'new round starting' + color.BOLD_END)
+            print(color.BOLD_START + '[{}] new round starting'.format(n_round[client_id]) + color.BOLD_END)
             print(
                 f'trainer was selected for training this round and will start training!')
             trainer.train_model()
@@ -121,7 +128,7 @@ def on_message_selection(client, userdata, message):
             print(f'finished training and sent weights!')
         else:
             selected = False
-            print(color.BOLD_START + 'new round starting' + color.BOLD_END)
+            print(color.BOLD_START + '[{}] new round starting'.format(n_round[client_id]) + color.BOLD_END)
             print(f'trainer was not selected for training this round')
 
 # callback for posAggQueue: gets aggregated weights and publish validation results on the metricsQueue
