@@ -1,25 +1,24 @@
-from .sketch_utils import compress, decompress, get_params, set_params, set_params_fedsketch, differential_garantee_pytorch, delta_weights, get_random_hashfunc
-from sklearn.metrics import accuracy_score
+import os
 import pandas as pd
 import numpy as np
-import glob
 import sklearn
+import torch
+import torchvision
+
+from .sketch_utils import (compress, decompress, get_params, set_params_fedsketch,
+                           delta_weights, get_random_hashfunc)
+from sklearn.metrics import accuracy_score
 from tsai.inference import load_learner
 from tsai.all import *
 from tsai.basics import *
-import sys
-import gc
 from torchvision.datasets.mnist import MNIST
 from torchvision.transforms import ToTensor
 from torchvision import datasets, transforms
-import torchvision
 from torch.utils.data import DataLoader
 from torch.nn import CrossEntropyLoss
 from torch.optim import Adam
-import torch.nn.functional as nnf
 from torch import nn, optim
-import torch
-import os
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 
@@ -160,37 +159,3 @@ class TrainerFedSketch:
         X_test = X[splits[1]]
         y_test = y[splits[1]]
         return dls, X_test, y_test
-
-
-# if __name__ == '__main__':
-#    trainer = TrainerFedSketch(0,'client')
-#    #x_train, y_train, x_test, y_test = trainer.load_data()
-#    # print(x_train.shape,y_train.shape, x_test.shape,y_test.shape)
-#    #acc = trainer.eval_model()
-#    #print(acc)
-#    acc = 0.0
-#    while acc < 0.9:
-#        trainer.train_model()
-#        sketch = trainer.get_weights()
-#        print(sketch.shape)
-#        trainer.update_weights(sketch)
-#        trainer.model.model = trainer.model.model.float()
-#        acc = trainer.eval_model()
-#        print("Accuracy: " + str(acc))
-
-    # y_predict = trainer.model.predict(x_test)
-
-    # Convertendo os arrays numpy para DataFrames
-    # x_train_df = pd.DataFrame(x_train)
-    # y_train_df = pd.DataFrame(y_train)
-    # x_test_df = pd.DataFrame(x_test)
-    # y_test_df = pd.DataFrame(y_test)
-    # y_predict_df = pd.DataFrame(y_predict)
-
-    # Salvando os DataFrames como arquivos CSV
-
-    # x_train_df.to_csv('x_train.csv', index=False)
-    # y_train_df.to_csv('y_train.csv', index=False)
-    # x_test_df.to_csv('x_test.csv', index=False)
-    # y_test_df.to_csv('y_test.csv', index=False)
-    # y_predict_df.to_csv('y_predict.csv', index=False)

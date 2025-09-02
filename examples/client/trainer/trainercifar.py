@@ -1,14 +1,15 @@
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
+import pandas as pd
+import numpy as np
 import tensorflow as tf
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Flatten
 from tensorflow.keras.layers import Conv2D, MaxPooling2D
 import tensorflow.keras.optimizers as optimizers
 
-import pandas as pd
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-import numpy as np
 
 class TrainerCifar:
     def __init__(self, id, mode) -> None:
@@ -30,9 +31,7 @@ class TrainerCifar:
     
     def get_num_samples(self):
         return self.num_samples
-    
-    
-    
+
     def define_model(self, input_shape=(32, 32, 3), n_classes=10):
         model = Sequential()
         model.add(Conv2D(32, (3, 3), padding='same',input_shape=input_shape, activation='relu'))
@@ -58,7 +57,6 @@ class TrainerCifar:
 
 
         return model
-
 
     def split_data(self):
         (train_images, train_labels), (test_images, test_labels) = tf.keras.datasets.cifar10.load_data()
@@ -136,22 +134,3 @@ if __name__ == '__main__':
         trainer.train_model()
         acc = trainer.eval_model()
         print(acc)
-    
-    
-    # y_predict = trainer.model.predict(trainer.x_test)
-   
-    # # Convertendo os arrays numpy para DataFrames
-    # x_train_df = pd.DataFrame(trainer.x_train)
-    # y_train_df = pd.DataFrame(trainer.y_train)
-    # x_test_df = pd.DataFrame(trainer.x_test)
-    # y_test_df = pd.DataFrame(trainer.y_test)
-    # y_predict_df = pd.DataFrame(y_predict)
-
-    # # Salvando os DataFrames como arquivos CSV
-   
-  
-    # x_train_df.to_csv('x_train.csv', index=False)
-    # y_train_df.to_csv('y_train.csv', index=False)
-    # x_test_df.to_csv('x_test.csv', index=False)
-    # y_test_df.to_csv('y_test.csv', index=False)
-    # y_predict_df.to_csv('y_predict.csv', index=False)

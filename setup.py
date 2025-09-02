@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 setup(
     name='mininetfed',
     version='1.0.0',
-    description='(INSERIR DESCRIÇÃO)',
+    description='',
     author='jjakob10',
     author_email='johann.bastos@edu.ufes.br',
     url='https://github.com/lprm-ufes/MininetFed',

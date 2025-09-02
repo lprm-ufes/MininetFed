@@ -41,6 +41,7 @@ EXPOSE 8883
 # Copy the requirements file into the container
 
 COPY ../util/requirements/container/server.requirements.txt .
+#COPY ../examples/server /server
 
 
 # Install the Python dependencies

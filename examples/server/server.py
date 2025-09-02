@@ -40,7 +40,6 @@ def server():
         exit()
 
     server_args = json.loads(sys.argv[3])
-
     broker_addr = sys.argv[1]
     log_file = sys.argv[2]
     min_trainers = server_args["min_trainers"]
@@ -49,7 +48,6 @@ def server():
     nun_rounds = server_args["num_rounds"]
     stop_acc = server_args["stop_acc"]
     client_args = server_args.get("client")
-
     logging.basicConfig(level=logging.INFO, filename=log_file,
                         format=FORMAT, filemode="w")
     metricType = {"infotype": "METRIC"}
@@ -68,8 +66,8 @@ def server():
 
     # subscribe to queues on connection
     def on_connect(client, userdata, flags, rc):
-        subscribe_queues = ['minifed/registerQueue',
-                            'minifed/preAggQueue', 'minifed/metricsQueue', 'minifed/ready']
+        subscribe_queues = ['minifed/registerQueue', 'minifed/preAggQueue',
+                            'minifed/metricsQueue', 'minifed/ready']
         for s in subscribe_queues:
             client.subscribe(s)
 
@@ -107,9 +105,6 @@ def server():
         logger.info(
             f'received weights from trainer {m["id"]}!', extra=executionType)
         print(f'received weights from trainer {m["id"]}!')
-
-    # def create_string_from_json(data):
-    #     return " - ".join(f"{name}: {value}" for name, value in data.items())
 
     # callback for metricsQueue: get the metrics from each client after it finish its round
     def on_message_metrics(client, userdata, message):
@@ -194,8 +189,7 @@ def server():
             time.sleep(1)
         controller.reset_num_responses()  # reset num_responses for next round
         mean_acc = controller.get_mean_acc()
-        logger.info(
-            f'mean_accuracy: {mean_acc}\n', extra=metricType)
+        logger.info(f'mean_accuracy: {mean_acc}\n', extra=metricType)
         print(color.GREEN +
               f'mean accuracy on round {controller.get_current_round()} was {mean_acc}\n' + color.RESET)
 

@@ -1,8 +1,9 @@
+import os
+import shutil
+import stat
+
 from pathlib import Path
 from datetime import datetime
-import shutil
-import os
-import stat
 from federated.node import VOLUME_FOLDER
 
 
@@ -34,7 +35,7 @@ class Experiment:
             self.local_path = f"{self.experiments_folder}/{self.name}"
         Path(self.local_path).mkdir(parents=True, exist_ok=True)
 
-        # Altere as permissões da pasta para 777
+        # Change folder permissions to 777
         os.chmod(self.local_path, stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO)
 
         self.path = f"{VOLUME_FOLDER}/{self.local_path}"

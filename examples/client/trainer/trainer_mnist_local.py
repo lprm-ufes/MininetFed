@@ -259,20 +259,3 @@ if __name__ == '__main__':
         trainer.train_model()
         acc = trainer.eval_model()
         print(acc)
-
-    # y_predict = trainer.model.predict(trainer.x_test)
-
-    # # Convertendo os arrays numpy para DataFrames
-    # x_train_df = pd.DataFrame(trainer.x_train)
-    # y_train_df = pd.DataFrame(trainer.y_train)
-    # x_test_df = pd.DataFrame(trainer.x_test)
-    # y_test_df = pd.DataFrame(trainer.y_test)
-    # y_predict_df = pd.DataFrame(y_predict)
-
-    # # Salvando os DataFrames como arquivos CSV
-
-    # x_train_df.to_csv('x_train.csv', index=False)
-    # y_train_df.to_csv('y_train.csv', index=False)
-    # x_test_df.to_csv('x_test.csv', index=False)
-    # y_test_df.to_csv('y_test.csv', index=False)
-    # y_predict_df.to_csv('y_predict.csv', index=False)

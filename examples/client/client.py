@@ -10,15 +10,16 @@ try:
 except:
     pass
 
-def criar_objeto(pacote, nome_classe, **atributos):
-    try:
-        modulo = importlib.import_module(f"{pacote}")
-        classe = getattr(modulo, nome_classe)  # Obtém a classe do módulo
-        return classe(**atributos)  # Instancia a classe
-    except (ModuleNotFoundError, AttributeError) as e:
-        print(f"Erro: {e}", file=sys.stderr)
-        return None
+n_round = {}
 
+def create_object(package, class_name, **atributtes):
+    try:
+        module = importlib.import_module(f"{package}")
+        class_ = getattr(module, class_name)
+        return class_(**atributtes)
+    except (ModuleNotFoundError, AttributeError) as e:
+        print(f"Error: {e}", file=sys.stderr)
+        return None
 
 n = len(sys.argv)
 
@@ -79,8 +80,6 @@ class color:
 
 
 # subscribe to queues on connection
-
-
 def on_connect(client, userdata, flags, rc):
     subscribe_queues = ['minifed/selectionQueue',
                         'minifed/posAggQueue', 'minifed/stopQueue', 'minifed/serverArgs']
@@ -89,7 +88,6 @@ def on_connect(client, userdata, flags, rc):
 
 
 # callback for serverArgs: update the args with new information send by the server, between the round 0 and the round 1.
-
 def on_server_args(client, userdata, message):
     msg = json.loads(message.payload.decode("utf-8"))
     if msg['id'] == CLIENT_NAME:
@@ -103,17 +101,19 @@ def on_server_args(client, userdata, message):
 callback for selectionQueue: the selection queue is sent by the server; 
 the client checks if it's selected for the current round or not. If yes, 
 the client trains and send the training results back.
-
 """
-
-
 def on_message_selection(client, userdata, message):
     global selected
+    global n_round
     msg = json.loads(message.payload.decode("utf-8"))
     if msg['id'] == CLIENT_NAME:
-        if bool(msg['selected']) == True:
+        client_id = msg['id']
+        if client_id not in n_round:
+            n_round[client_id] = 0
+        n_round[client_id] += 1
+        if bool(msg['selected']):
             selected = True
-            print(color.BOLD_START + 'new round starting' + color.BOLD_END)
+            print(color.BOLD_START + '[{}] new round starting'.format(n_round[client_id]) + color.BOLD_END)
             print(
                 f'trainer was selected for training this round and will start training!')
             trainer.train_model()
@@ -128,12 +128,10 @@ def on_message_selection(client, userdata, message):
             print(f'finished training and sent weights!')
         else:
             selected = False
-            print(color.BOLD_START + 'new round starting' + color.BOLD_END)
+            print(color.BOLD_START + '[{}] new round starting'.format(n_round[client_id]) + color.BOLD_END)
             print(f'trainer was not selected for training this round')
 
 # callback for posAggQueue: gets aggregated weights and publish validation results on the metricsQueue
-
-
 def on_message_agg(client, userdata, message):
     global selected
     print(f'received aggregated weights!')
@@ -154,31 +152,13 @@ def on_message_agg(client, userdata, message):
     client.publish('minifed/metricsQueue', response)
 
 # callback for stopQueue: if conditions are met, stop training and exit process
-
-
 def on_message_stop(client, userdata, message):
     print(color.RED + f'received message to stop!')
     trainer.set_stop_true()
     exit()
 
-
-# def get_trainer():
-#     # # try:
-#     # if CLIENT_INSTANTIATION_ARGS is not None:
-
-#     return criar_objeto("trainer", trainer_class, id=CLIENT_ID, name=CLIENT_NAME, args=CLIENT_INSTANTIATION_ARGS)
-#     # else:
-#     #     return Trainer(CLIENT_ID, CLIENT_NAME, {})
-
-#     # # old trainer standard
-#     # except:
-#     #     return Trainer(CLIENT_ID, MODE)
-
-
-# connect on queue and send register
-
-trainer = criar_objeto("trainer", trainer_class, id=CLIENT_ID,
-                       name=CLIENT_NAME, args=CLIENT_INSTANTIATION_ARGS)
+trainer = create_object("trainer", trainer_class, id=CLIENT_ID,
+                        name=CLIENT_NAME, args=CLIENT_INSTANTIATION_ARGS)
 client = mqtt.Client(str(CLIENT_NAME))
 client.connect(BROKER_ADDR, keepalive=0)
 client.on_connect = on_connect

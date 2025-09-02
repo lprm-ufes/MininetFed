@@ -1,11 +1,14 @@
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-import tensorflow as tf 
+import tensorflow as tf
+import numpy as np
+import pandas as pd
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Flatten
 from tensorflow.keras.optimizers import SGD
-import numpy as np
-import pandas as pd
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
 
 class TrainerHarMotionSense:
         
@@ -105,33 +108,26 @@ class TrainerHarMotionSense:
         return x_train, y_train, x_test, y_test
 
 
-
-        
-
 if __name__ == '__main__':
     trainer = TrainerHarMotionSense(0,'client')
     x_train, y_train, x_test, y_test = trainer.load_data()
-    # print(x_train.shape,y_train.shape, x_test.shape,y_test.shape)
     acc = trainer.eval_model()
     print(acc)
     while acc < 0.9:
         trainer.train_model()
         acc = trainer.eval_model()
         print(acc)
-    
-    
+
     y_predict = trainer.model.predict(x_test)
    
-    # Convertendo os arrays numpy para DataFrames
+    # Converting NumPy arrays to DataFrames
     x_train_df = pd.DataFrame(x_train)
     y_train_df = pd.DataFrame(y_train)
     x_test_df = pd.DataFrame(x_test)
     y_test_df = pd.DataFrame(y_test)
     y_predict_df = pd.DataFrame(y_predict)
 
-    # Salvando os DataFrames como arquivos CSV
-   
-  
+    # Saving DataFrames as CSV Files
     x_train_df.to_csv('x_train.csv', index=False)
     y_train_df.to_csv('y_train.csv', index=False)
     x_test_df.to_csv('x_test.csv', index=False)

@@ -1,16 +1,17 @@
+import os
+import pandas as pd
+import numpy as np
+import tensorflow as tf
+
 from .trainer_utils import read_energy
 from imblearn.over_sampling import RandomOverSampler
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
-import pandas as pd
-import numpy as np
 from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.layers import Dense, Flatten
 from tensorflow.keras.models import Sequential
-import tensorflow as tf
-import os
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-# from imblearn.under_sampling import RandomUnderSampler
 
 
 class TrainerHarEnergy:
@@ -31,9 +32,6 @@ class TrainerHarEnergy:
         self.model = self.define_model(input_shape, n_classes)
         self.stop_flag = False
         self.args = None
-
-        # print(f"id:{self.id}")
-        # print(f"mode:{self.mode}")
 
     def set_args(self, args):
         self.args = args
@@ -76,9 +74,6 @@ class TrainerHarEnergy:
         metrics_names = self.model.metrics_names
         values = self.model.evaluate(
             x=self.x_test, y=self.y_test, verbose=False)
-        # dicio = dict(zip(metrics_names, values))
-        # print(f'loss:{dicio["loss"]}')
-        # return dicio
         dic = dict(zip(metrics_names, values))
         dic['energy_consumption'] = read_energy()
         return dic
@@ -210,17 +205,17 @@ if __name__ == '__main__':
     trainer.train_model()
     y_predict = trainer.model.predict(x_test)
 
-    # Informações do dataset
-    print("N clientes distintos na divisão client: ", len(trainer.idslist))
+    # Dataset information
+    print("N different clients in the client division: ", len(trainer.idslist))
 
-    # Convertendo os arrays numpy para DataFrames
+    # Converting NumPy arrays to DataFrames
     x_train_df = pd.DataFrame(x_train)
     y_train_df = pd.DataFrame(y_train)
     x_test_df = pd.DataFrame(x_test)
     y_test_df = pd.DataFrame(y_test)
     y_predict_df = pd.DataFrame(y_predict)
 
-    # Salvando os DataFrames como arquivos CSV
+    # Saving DataFrames as CSV Files
     x_train_df.to_csv('x_train.csv', index=False)
     y_train_df.to_csv('y_train.csv', index=False)
     x_test_df.to_csv('x_test.csv', index=False)

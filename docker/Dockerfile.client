@@ -39,6 +39,7 @@ EXPOSE 1883
 EXPOSE 8883
 
 COPY ../util/requirements/container/client_tensorflow.requirements.txt .
+#COPY ../examples/client /client
 
 # Install the Python dependencies
 RUN python3.10 -m pip install --no-cache-dir -r client_tensorflow.requirements.txt

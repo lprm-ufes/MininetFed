@@ -1,20 +1,20 @@
-from tensorflow.keras.layers import Conv2D, MaxPool2D, Flatten, Dense
+import os
 import numpy as np
+import tensorflow as tf
+
+from tensorflow.keras.layers import Conv2D, MaxPool2D, Flatten, Dense
 from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.models import Sequential
-import tensorflow as tf
-import os
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 
 class TrainerMINIST:
-    def __init__(self,num_id, mode) -> None:
+    def __init__(self, num_id, mode) -> None:
         # id and model
         self.num_id = num_id
         self.mode = mode
         self.model = self.define_model()
-        # split data
-        # select a random number ranging from 10000 < num_samples < 20000
         self.num_samples = int(np.random.choice(np.arange(10000, 20000, 1000)))
         self.x_train, self.y_train, self.x_test, self.y_test = self.split_data()
         self.stop_flag = False
@@ -83,9 +83,3 @@ class TrainerMINIST:
 
     def get_stop_flag(self):
         return self.stop_flag
-
-# if __name__ == '__main__':
-#     trainer = Trainer()
-#     for l in trainer.model.layers:
-#         print(l.name)
-#         print(l.get_weights())
