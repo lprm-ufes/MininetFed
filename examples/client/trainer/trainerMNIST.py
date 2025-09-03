@@ -9,7 +9,7 @@ from tensorflow.keras.models import Sequential
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 
-class TrainerMINIST:
+class TrainerMNIST:
     def __init__(self, num_id, mode) -> None:
         # id and model
         self.num_id = num_id

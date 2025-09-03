@@ -44,7 +44,7 @@ COPY ../util/requirements/container/client_tensorflow.requirements.txt .
 # Install the Python dependencies
 RUN python3.10 -m pip install --no-cache-dir -r client_tensorflow.requirements.txt
 
-COPY ../util/client /client
+#COPY ../util/client /client
 
 # Remoção da interface padrão
 # RUN apt install sudo
